@@ -1,4 +1,4 @@
-package com.airbnb.lottie.animation;
+package com.airbnb.lottie.animation.keyframe;
 
 import android.support.annotation.RestrictTo;
 import android.view.animation.Interpolator;

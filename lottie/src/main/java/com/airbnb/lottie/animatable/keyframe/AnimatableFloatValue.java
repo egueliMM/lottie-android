@@ -1,10 +1,10 @@
-package com.airbnb.lottie.animatable;
+package com.airbnb.lottie.animatable.keyframe;
 
 import android.support.annotation.RestrictTo;
 
-import com.airbnb.lottie.animation.KeyframeAnimation;
-import com.airbnb.lottie.animation.NumberKeyframeAnimation;
-import com.airbnb.lottie.animation.StaticKeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.KeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.NumberKeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.StaticKeyframeAnimation;
 import com.airbnb.lottie.model.LottieComposition;
 
 import org.json.JSONArray;
@@ -12,7 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class AnimatableFloatValue extends BaseAnimatableValue<Float, Float> {
+public class AnimatableFloatValue extends KeyframeAnimatableValue<Float, Float> {
 
   public AnimatableFloatValue(LottieComposition composition, Float initialValue) {
     super(composition);

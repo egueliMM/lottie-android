@@ -4,10 +4,10 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
 
-import com.airbnb.lottie.animatable.AnimatableFloatValue;
-import com.airbnb.lottie.animation.KeyframeAnimation;
+import com.airbnb.lottie.animatable.keyframe.AnimatableFloatValue;
+import com.airbnb.lottie.animation.keyframe.KeyframeAnimation;
 import com.airbnb.lottie.animation.Animation;
-import com.airbnb.lottie.animation.StaticKeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.StaticKeyframeAnimation;
 import com.airbnb.lottie.model.CircleShape;
 import com.airbnb.lottie.model.ShapeFill;
 import com.airbnb.lottie.model.ShapeStroke;

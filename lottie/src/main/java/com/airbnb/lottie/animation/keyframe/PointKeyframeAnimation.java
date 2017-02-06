@@ -1,4 +1,4 @@
-package com.airbnb.lottie.animation;
+package com.airbnb.lottie.animation.keyframe;
 
 import android.graphics.PointF;
 import android.support.annotation.RestrictTo;

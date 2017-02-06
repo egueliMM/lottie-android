@@ -2,8 +2,8 @@ package com.airbnb.lottie.model;
 
 import android.support.annotation.RestrictTo;
 
-import com.airbnb.lottie.animatable.AnimatableIntegerValue;
-import com.airbnb.lottie.animatable.AnimatableShapeValue;
+import com.airbnb.lottie.animatable.keyframe.AnimatableIntegerValue;
+import com.airbnb.lottie.animatable.keyframe.AnimatableShapeValue;
 
 import org.json.JSONException;
 import org.json.JSONObject;

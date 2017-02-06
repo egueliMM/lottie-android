@@ -1,5 +1,6 @@
-package com.airbnb.lottie.animation;
+package com.airbnb.lottie.animation.keyframe;
 
+import android.animation.ArgbEvaluator;
 import android.support.annotation.RestrictTo;
 import android.view.animation.Interpolator;
 
@@ -7,25 +8,22 @@ import com.airbnb.lottie.model.LottieComposition;
 
 import java.util.List;
 
-import static com.airbnb.lottie.utils.MiscUtils.lerp;
-
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class NumberKeyframeAnimation<T extends Number> extends KeyframeAnimation<T> {
+public class ColorKeyframeAnimation extends KeyframeAnimation<Integer> {
+  private final ArgbEvaluator argbEvaluator = new ArgbEvaluator();
 
-  private final List<T> values;
-  private final Class<T> klass;
+  private final List<Integer> values;
 
-  public NumberKeyframeAnimation(long duration, LottieComposition composition, List<Float> keyTimes, Class<T> klass, List<T> values, List<Interpolator> interpolators) {
+  public ColorKeyframeAnimation(long duration, LottieComposition composition, List<Float> keyTimes, List<Integer> values, List<Interpolator> interpolators) {
     super(duration, composition, keyTimes, interpolators);
-    this.klass = klass;
     if (keyTimes.size() != values.size()) {
-      throw new IllegalArgumentException("Key times and values must be the same length " + keyTimes + " vs " + values);
+      throw new IllegalArgumentException("Key times and values must be the same length " + keyTimes.size() + " vs " + values.size());
     }
     this.values = values;
   }
 
   @Override
-  public T getValue() {
+  public Integer getValue() {
     if (progress <= 0f) {
       return values.get(0);
     } else if (progress >= 1f) {
@@ -45,13 +43,9 @@ public class NumberKeyframeAnimation<T extends Number> extends KeyframeAnimation
       }
     }
 
-    Number startValue = values.get(keyframeIndex);
-    Number endValue = values.get(keyframeIndex + 1);
+    int startColor = values.get(keyframeIndex);
+    int endColor = values.get(keyframeIndex + 1);
 
-    if (klass.isAssignableFrom(Integer.class)) {
-      return klass.cast(lerp(startValue.intValue(), endValue.intValue(), percentageIntoFrame));
-    } else {
-      return klass.cast(lerp(startValue.floatValue(), endValue.floatValue(), percentageIntoFrame));
-    }
+    return (Integer) argbEvaluator.evaluate(percentageIntoFrame, startColor, endColor);
   }
 }

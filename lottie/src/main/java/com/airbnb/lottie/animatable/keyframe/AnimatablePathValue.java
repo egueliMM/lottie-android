@@ -1,4 +1,4 @@
-package com.airbnb.lottie.animatable;
+package com.airbnb.lottie.animatable.keyframe;
 
 import android.graphics.PointF;
 import android.support.annotation.RestrictTo;
@@ -6,9 +6,10 @@ import android.support.v4.view.animation.PathInterpolatorCompat;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
-import com.airbnb.lottie.animation.KeyframeAnimation;
-import com.airbnb.lottie.animation.PathKeyframeAnimation;
-import com.airbnb.lottie.animation.StaticKeyframeAnimation;
+import com.airbnb.lottie.animatable.AnimatableValue;
+import com.airbnb.lottie.animation.keyframe.KeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.PathKeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.StaticKeyframeAnimation;
 import com.airbnb.lottie.model.LottieComposition;
 import com.airbnb.lottie.utils.JsonUtils;
 import com.airbnb.lottie.utils.SegmentedPath;

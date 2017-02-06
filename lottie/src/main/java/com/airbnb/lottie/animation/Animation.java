@@ -15,7 +15,7 @@ public interface Animation<T> {
 
   T getValue();
 
-  public interface AnimationListener<T> {
+  interface AnimationListener<T> {
     void onValueChanged(T progress);
   }
 }

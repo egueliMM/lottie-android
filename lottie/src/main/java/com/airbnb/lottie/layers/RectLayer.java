@@ -10,8 +10,8 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.airbnb.lottie.animatable.AnimatableFloatValue;
-import com.airbnb.lottie.animation.KeyframeAnimation;
+import com.airbnb.lottie.animatable.keyframe.AnimatableFloatValue;
+import com.airbnb.lottie.animation.keyframe.KeyframeAnimation;
 import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.model.RectangleShape;
 import com.airbnb.lottie.model.ShapeFill;

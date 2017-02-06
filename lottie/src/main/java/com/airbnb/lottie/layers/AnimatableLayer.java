@@ -13,7 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 
-import com.airbnb.lottie.animation.KeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.KeyframeAnimation;
 import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.utils.ScaleXY;
 

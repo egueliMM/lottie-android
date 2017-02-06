@@ -4,8 +4,8 @@ import android.support.annotation.RestrictTo;
 import android.util.Log;
 
 import com.airbnb.lottie.L;
-import com.airbnb.lottie.animatable.AnimatableColorValue;
-import com.airbnb.lottie.animatable.AnimatableIntegerValue;
+import com.airbnb.lottie.animatable.keyframe.AnimatableColorValue;
+import com.airbnb.lottie.animatable.keyframe.AnimatableIntegerValue;
 
 import org.json.JSONException;
 import org.json.JSONObject;

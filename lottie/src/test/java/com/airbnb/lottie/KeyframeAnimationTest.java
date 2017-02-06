@@ -4,7 +4,7 @@ package com.airbnb.lottie;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
-import com.airbnb.lottie.animation.NumberKeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.NumberKeyframeAnimation;
 import com.airbnb.lottie.model.LottieComposition;
 
 import org.junit.Test;

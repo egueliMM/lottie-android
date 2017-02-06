@@ -1,4 +1,4 @@
-package com.airbnb.lottie.animation;
+package com.airbnb.lottie.animation.keyframe;
 
 import android.graphics.PathMeasure;
 import android.graphics.PointF;

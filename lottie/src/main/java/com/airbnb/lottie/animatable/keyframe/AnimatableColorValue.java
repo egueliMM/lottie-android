@@ -1,11 +1,11 @@
-package com.airbnb.lottie.animatable;
+package com.airbnb.lottie.animatable.keyframe;
 
 import android.graphics.Color;
 import android.support.annotation.RestrictTo;
 
 import com.airbnb.lottie.animation.Animation;
-import com.airbnb.lottie.animation.ColorKeyframeAnimation;
-import com.airbnb.lottie.animation.StaticKeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.ColorKeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.StaticKeyframeAnimation;
 import com.airbnb.lottie.model.LottieComposition;
 
 import org.json.JSONArray;
@@ -13,7 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class AnimatableColorValue extends BaseAnimatableValue<Integer, Integer> {
+public class AnimatableColorValue extends KeyframeAnimatableValue<Integer, Integer> {
 
   public AnimatableColorValue(JSONObject json, int frameRate, LottieComposition composition) {
     super(json, frameRate, composition, false);

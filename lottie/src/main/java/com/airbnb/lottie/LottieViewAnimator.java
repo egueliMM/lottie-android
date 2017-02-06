@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.LinearInterpolator;
 
-import com.airbnb.lottie.animation.KeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.KeyframeAnimation;
 import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.model.Layer;
 import com.airbnb.lottie.model.LottieComposition;

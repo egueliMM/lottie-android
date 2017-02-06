@@ -7,10 +7,10 @@ import android.support.annotation.RestrictTo;
 import android.util.Log;
 
 import com.airbnb.lottie.L;
-import com.airbnb.lottie.animatable.AnimatableFloatValue;
-import com.airbnb.lottie.animatable.AnimatableIntegerValue;
-import com.airbnb.lottie.animatable.AnimatablePathValue;
-import com.airbnb.lottie.animatable.AnimatableScaleValue;
+import com.airbnb.lottie.animatable.keyframe.AnimatableFloatValue;
+import com.airbnb.lottie.animatable.keyframe.AnimatableIntegerValue;
+import com.airbnb.lottie.animatable.keyframe.AnimatablePathValue;
+import com.airbnb.lottie.animatable.keyframe.AnimatableScaleValue;
 
 import org.json.JSONArray;
 import org.json.JSONException;

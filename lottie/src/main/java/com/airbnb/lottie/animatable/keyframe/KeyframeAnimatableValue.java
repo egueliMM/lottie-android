@@ -1,4 +1,4 @@
-package com.airbnb.lottie.animatable;
+package com.airbnb.lottie.animatable.keyframe;
 
 
 import android.graphics.PointF;
@@ -7,6 +7,7 @@ import android.support.v4.view.animation.PathInterpolatorCompat;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
+import com.airbnb.lottie.animatable.AnimatableValue;
 import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.model.LottieComposition;
 import com.airbnb.lottie.utils.JsonUtils;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-abstract class BaseAnimatableValue<V, O> implements AnimatableValue {
+abstract class KeyframeAnimatableValue<V, O> implements AnimatableValue {
   final List<V> keyValues = new ArrayList<>();
   final List<Float> keyTimes = new ArrayList<>();
   final List<Interpolator> interpolators = new ArrayList<>();
@@ -37,13 +38,13 @@ abstract class BaseAnimatableValue<V, O> implements AnimatableValue {
   /**
    * Create a default static animatable path.
    */
-  BaseAnimatableValue(LottieComposition composition) {
+  KeyframeAnimatableValue(LottieComposition composition) {
     this.composition = composition;
     isDp = false;
     frameRate = 0;
   }
 
-  BaseAnimatableValue(@Nullable JSONObject json, int frameRate, LottieComposition composition, boolean isDp) {
+  KeyframeAnimatableValue(@Nullable JSONObject json, int frameRate, LottieComposition composition, boolean isDp) {
     this.frameRate = frameRate;
     this.composition = composition;
     this.isDp = isDp;

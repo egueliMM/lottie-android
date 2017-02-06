@@ -3,8 +3,8 @@ package com.airbnb.lottie.layers;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 
-import com.airbnb.lottie.animatable.AnimatableFloatValue;
-import com.airbnb.lottie.animatable.AnimatableScaleValue;
+import com.airbnb.lottie.animatable.keyframe.AnimatableFloatValue;
+import com.airbnb.lottie.animatable.keyframe.AnimatableScaleValue;
 import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.model.ShapeFill;
 import com.airbnb.lottie.model.ShapePath;

@@ -4,7 +4,7 @@ import android.support.annotation.RestrictTo;
 import android.util.Log;
 
 import com.airbnb.lottie.L;
-import com.airbnb.lottie.animatable.AnimatableShapeValue;
+import com.airbnb.lottie.animatable.keyframe.AnimatableShapeValue;
 
 import org.json.JSONException;
 import org.json.JSONObject;

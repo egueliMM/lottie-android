@@ -2,7 +2,7 @@ package com.airbnb.lottie.model;
 
 import android.support.annotation.RestrictTo;
 
-import com.airbnb.lottie.animatable.AnimatableFloatValue;
+import com.airbnb.lottie.animatable.keyframe.AnimatableFloatValue;
 
 import org.json.JSONException;
 import org.json.JSONObject;

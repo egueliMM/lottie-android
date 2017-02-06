@@ -2,8 +2,8 @@ package com.airbnb.lottie.model;
 
 import android.support.annotation.RestrictTo;
 
-import com.airbnb.lottie.animatable.AnimatablePathValue;
-import com.airbnb.lottie.animatable.AnimatablePointValue;
+import com.airbnb.lottie.animatable.keyframe.AnimatablePathValue;
+import com.airbnb.lottie.animatable.keyframe.AnimatablePointValue;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -15,7 +15,7 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.airbnb.lottie.animation.KeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.KeyframeAnimation;
 import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.model.ShapeStroke;
 import com.airbnb.lottie.utils.ScaleXY;

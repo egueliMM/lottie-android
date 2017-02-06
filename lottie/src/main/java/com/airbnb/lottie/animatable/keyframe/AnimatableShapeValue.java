@@ -1,12 +1,12 @@
-package com.airbnb.lottie.animatable;
+package com.airbnb.lottie.animatable.keyframe;
 
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.support.annotation.RestrictTo;
 
-import com.airbnb.lottie.animation.KeyframeAnimation;
-import com.airbnb.lottie.animation.ShapeKeyframeAnimation;
-import com.airbnb.lottie.animation.StaticKeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.KeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.ShapeKeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.StaticKeyframeAnimation;
 import com.airbnb.lottie.model.CubicCurveData;
 import com.airbnb.lottie.model.LottieComposition;
 import com.airbnb.lottie.model.ShapeData;
@@ -19,7 +19,7 @@ import org.json.JSONObject;
 import static com.airbnb.lottie.utils.MiscUtils.addPoints;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class AnimatableShapeValue extends BaseAnimatableValue<ShapeData, Path> {
+public class AnimatableShapeValue extends KeyframeAnimatableValue<ShapeData, Path> {
   private final Path convertTypePath = new Path();
 
   private boolean closed;

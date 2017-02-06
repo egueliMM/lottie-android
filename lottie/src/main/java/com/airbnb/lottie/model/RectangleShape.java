@@ -4,9 +4,9 @@ import android.support.annotation.RestrictTo;
 import android.util.Log;
 
 import com.airbnb.lottie.L;
-import com.airbnb.lottie.animatable.AnimatableFloatValue;
-import com.airbnb.lottie.animatable.AnimatablePathValue;
-import com.airbnb.lottie.animatable.AnimatablePointValue;
+import com.airbnb.lottie.animatable.keyframe.AnimatableFloatValue;
+import com.airbnb.lottie.animatable.keyframe.AnimatablePathValue;
+import com.airbnb.lottie.animatable.keyframe.AnimatablePointValue;
 
 import org.json.JSONException;
 import org.json.JSONObject;

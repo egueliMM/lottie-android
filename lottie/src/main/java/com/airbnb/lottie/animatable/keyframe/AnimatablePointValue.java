@@ -1,11 +1,11 @@
-package com.airbnb.lottie.animatable;
+package com.airbnb.lottie.animatable.keyframe;
 
 import android.graphics.PointF;
 import android.support.annotation.RestrictTo;
 
-import com.airbnb.lottie.animation.KeyframeAnimation;
-import com.airbnb.lottie.animation.PointKeyframeAnimation;
-import com.airbnb.lottie.animation.StaticKeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.KeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.PointKeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.StaticKeyframeAnimation;
 import com.airbnb.lottie.model.LottieComposition;
 import com.airbnb.lottie.utils.JsonUtils;
 
@@ -14,7 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class AnimatablePointValue extends BaseAnimatableValue<PointF, PointF> {
+public class AnimatablePointValue extends KeyframeAnimatableValue<PointF, PointF> {
 
   public AnimatablePointValue(JSONObject pointValues, int frameRate, LottieComposition composition) {
     super(pointValues, frameRate, composition, true);

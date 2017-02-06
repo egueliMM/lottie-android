@@ -16,7 +16,7 @@ import android.support.annotation.RestrictTo;
 import android.view.animation.Interpolator;
 
 import com.airbnb.lottie.animation.Animation;
-import com.airbnb.lottie.animation.NumberKeyframeAnimation;
+import com.airbnb.lottie.animation.keyframe.NumberKeyframeAnimation;
 import com.airbnb.lottie.model.CircleShape;
 import com.airbnb.lottie.model.Layer;
 import com.airbnb.lottie.model.LottieComposition;
