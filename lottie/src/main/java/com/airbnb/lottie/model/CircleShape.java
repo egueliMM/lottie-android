@@ -1,7 +1,9 @@
 package com.airbnb.lottie.model;
 
+import android.graphics.PointF;
 import android.support.annotation.RestrictTo;
 
+import com.airbnb.lottie.animatable.AnimatableValue;
 import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatablePathValue;
 import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatablePointValue;
 
@@ -10,8 +12,8 @@ import org.json.JSONObject;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class CircleShape {
-  private final KeyframeAnimatablePathValue position;
-  private final KeyframeAnimatablePointValue size;
+  private final AnimatableValue<PointF> position;
+  private final AnimatableValue<PointF> size;
 
   CircleShape(JSONObject json, int frameRate, LottieComposition composition) {
     try {
@@ -22,11 +24,11 @@ public class CircleShape {
     }
   }
 
-  public KeyframeAnimatablePathValue getPosition() {
+  public AnimatableValue<PointF> getPosition() {
     return position;
   }
 
-  public KeyframeAnimatablePointValue getSize() {
+  public AnimatableValue<PointF> getSize() {
     return size;
   }
 }

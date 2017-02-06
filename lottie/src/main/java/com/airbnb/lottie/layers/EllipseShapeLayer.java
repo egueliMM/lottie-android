@@ -5,7 +5,6 @@ import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
 
 import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableFloatValue;
-import com.airbnb.lottie.animation.keyframe.KeyframeAnimation;
 import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.animation.keyframe.StaticKeyframeAnimation;
 import com.airbnb.lottie.model.CircleShape;
@@ -84,15 +83,15 @@ class EllipseShapeLayer extends AnimatableLayer {
 
     private final Path path = new Path();
 
-    private KeyframeAnimation<PointF> circleSize;
-    private KeyframeAnimation<PointF> circlePosition;
+    private Animation<PointF> circleSize;
+    private Animation<PointF> circlePosition;
 
     CircleShapeLayer(Drawable.Callback callback) {
       super(callback);
       setPath(new StaticKeyframeAnimation<>(path));
     }
 
-    void updateCircle(KeyframeAnimation<PointF> circlePosition, KeyframeAnimation<PointF> circleSize) {
+    void updateCircle(Animation<PointF> circlePosition, Animation<PointF> circleSize) {
       if (this.circleSize != null) {
         removeAnimation(this.circleSize);
         this.circleSize.removeUpdateListener(circleSizeChangedListener);

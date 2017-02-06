@@ -1,24 +1,23 @@
 package com.airbnb.lottie.model;
 
+import android.graphics.PointF;
 import android.graphics.Rect;
 import android.support.annotation.RestrictTo;
 
-import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableFloatValue;
-import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableIntegerValue;
-import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatablePathValue;
-import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableScaleValue;
+import com.airbnb.lottie.animatable.AnimatableValue;
+import com.airbnb.lottie.utils.ScaleXY;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public interface Transform {
   Rect getBounds();
 
-  KeyframeAnimatablePathValue getPosition();
+  AnimatableValue<PointF> getPosition();
 
-  KeyframeAnimatablePathValue getAnchor();
+  AnimatableValue<PointF> getAnchor();
 
-  KeyframeAnimatableScaleValue getScale();
+  AnimatableValue<ScaleXY> getScale();
 
-  KeyframeAnimatableFloatValue getRotation();
+  AnimatableValue<Float> getRotation();
 
-  KeyframeAnimatableIntegerValue getOpacity();
+  AnimatableValue<Integer> getOpacity();
 }

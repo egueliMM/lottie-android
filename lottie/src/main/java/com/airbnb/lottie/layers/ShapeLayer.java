@@ -88,7 +88,7 @@ class ShapeLayer extends AnimatableLayer {
   private float currentPathStrokeEnd = 100;
   private float currentPathStrokeOffset = 0;
 
-  @Nullable private KeyframeAnimation<ScaleXY> scale;
+  @Nullable private Animation<ScaleXY> scale;
   private final RectF tempRect = new RectF();
   private final Matrix scaleMatrix = new Matrix();
 
@@ -131,7 +131,7 @@ class ShapeLayer extends AnimatableLayer {
     invalidateSelf();
   }
 
-  public void setPath(KeyframeAnimation<Path> path) {
+  public void setPath(Animation<Path> path) {
     if (this.path != null) {
       removeAnimation(this.path);
       this.path.removeUpdateListener(pathChangedListener);
@@ -234,7 +234,7 @@ class ShapeLayer extends AnimatableLayer {
     return (int) ((shapeAlpha / 255f * transformAlpha / 255f * layerAlpha / 255f) * 255);
   }
 
-  void setShapeAlpha(KeyframeAnimation<Integer> shapeAlpha) {
+  void setShapeAlpha(Animation<Integer> shapeAlpha) {
     if (this.shapeAlpha != null) {
       removeAnimation(this.shapeAlpha);
       this.shapeAlpha.removeUpdateListener(alphaChangedListener);
@@ -245,7 +245,7 @@ class ShapeLayer extends AnimatableLayer {
     invalidateSelf();
   }
 
-  void setTransformAlpha(KeyframeAnimation<Integer> transformAlpha) {
+  void setTransformAlpha(Animation<Integer> transformAlpha) {
     if (this.transformAlpha != null) {
       removeAnimation(this.transformAlpha);
       this.transformAlpha.removeUpdateListener(alphaChangedListener);
@@ -378,7 +378,7 @@ class ShapeLayer extends AnimatableLayer {
     onPathPropertiesChanged();
   }
 
-  void setScale(@SuppressWarnings("NullableProblems") KeyframeAnimation<ScaleXY> scale) {
+  void setScale(@SuppressWarnings("NullableProblems") Animation<ScaleXY> scale) {
     if (this.scale != null) {
       removeAnimation(this.scale);
       this.scale.removeUpdateListener(scaleChangedListener);

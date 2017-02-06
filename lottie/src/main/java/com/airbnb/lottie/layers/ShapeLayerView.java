@@ -3,14 +3,15 @@ package com.airbnb.lottie.layers;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 
+import com.airbnb.lottie.animatable.AnimatableValue;
 import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableFloatValue;
-import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableScaleValue;
 import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.model.ShapeFill;
 import com.airbnb.lottie.model.ShapePath;
 import com.airbnb.lottie.model.ShapeStroke;
 import com.airbnb.lottie.model.ShapeTrimPath;
 import com.airbnb.lottie.model.Transform;
+import com.airbnb.lottie.utils.ScaleXY;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ class ShapeLayerView extends AnimatableLayer {
     setPosition(transformModel.getPosition().createAnimation());
     setRotation(transformModel.getRotation().createAnimation());
 
-    KeyframeAnimatableScaleValue scale = transformModel.getScale();
+    AnimatableValue<ScaleXY> scale = transformModel.getScale();
     setTransform(transformModel.getScale().createAnimation());
     if (fill != null) {
       fillLayer = new ShapeLayer(getCallback());

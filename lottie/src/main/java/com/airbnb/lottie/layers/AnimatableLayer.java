@@ -13,7 +13,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 
-import com.airbnb.lottie.animation.keyframe.KeyframeAnimation;
 import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.utils.ScaleXY;
 
@@ -51,14 +50,14 @@ public class AnimatableLayer extends Drawable {
   final List<AnimatableLayer> layers = new ArrayList<>();
   @Nullable private AnimatableLayer parentLayer;
 
-  private KeyframeAnimation<PointF> position;
-  private KeyframeAnimation<PointF> anchorPoint;
+  private Animation<PointF> position;
+  private Animation<PointF> anchorPoint;
   /**
    * This should mimic CALayer#transform
    */
-  private KeyframeAnimation<ScaleXY> transform;
-  private KeyframeAnimation<Integer> alpha = null;
-  private KeyframeAnimation<Float> rotation;
+  private Animation<ScaleXY> transform;
+  private Animation<Integer> alpha = null;
+  private Animation<Float> rotation;
 
   private final Paint solidBackgroundPaint = new Paint();
   @ColorInt private int backgroundColor;
@@ -169,7 +168,7 @@ public class AnimatableLayer extends Drawable {
     throw new IllegalArgumentException("This shouldn't be used.");
   }
 
-  void setAlpha(KeyframeAnimation<Integer> alpha) {
+  void setAlpha(Animation<Integer> alpha) {
     if (this.alpha != null) {
       removeAnimation(this.alpha);
       this.alpha.removeUpdateListener(integerChangedListener);
@@ -193,7 +192,7 @@ public class AnimatableLayer extends Drawable {
 
   }
 
-  void setAnchorPoint(KeyframeAnimation<PointF> anchorPoint) {
+  void setAnchorPoint(Animation<PointF> anchorPoint) {
     if (this.anchorPoint != null) {
       removeAnimation(this.anchorPoint);
       this.anchorPoint.removeUpdateListener(pointChangedListener);
@@ -203,7 +202,7 @@ public class AnimatableLayer extends Drawable {
     anchorPoint.addUpdateListener(pointChangedListener);
   }
 
-  void setPosition(KeyframeAnimation<PointF> position) {
+  void setPosition(Animation<PointF> position) {
     if (this.position != null) {
       removeAnimation(this.position);
       this.position.removeUpdateListener(pointChangedListener);
@@ -213,7 +212,7 @@ public class AnimatableLayer extends Drawable {
     position.addUpdateListener(pointChangedListener);
   }
 
-  void setTransform(KeyframeAnimation<ScaleXY> transform) {
+  void setTransform(Animation<ScaleXY> transform) {
     if (this.transform != null) {
       removeAnimation(this.transform);
       this.transform.removeUpdateListener(scaleChangedListener);
@@ -223,7 +222,7 @@ public class AnimatableLayer extends Drawable {
     transform.addUpdateListener(scaleChangedListener);
   }
 
-  void setRotation(KeyframeAnimation<Float> rotation) {
+  void setRotation(Animation<Float> rotation) {
     if (this.rotation != null) {
       removeAnimation(this.rotation);
       this.rotation.removeUpdateListener(floatChangedListener);

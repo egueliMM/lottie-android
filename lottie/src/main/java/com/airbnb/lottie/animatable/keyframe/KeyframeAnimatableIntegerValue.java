@@ -2,6 +2,7 @@ package com.airbnb.lottie.animatable.keyframe;
 
 import android.support.annotation.RestrictTo;
 
+import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.animation.keyframe.KeyframeAnimation;
 import com.airbnb.lottie.animation.keyframe.NumberKeyframeAnimation;
 import com.airbnb.lottie.animation.keyframe.StaticKeyframeAnimation;
@@ -40,7 +41,7 @@ public class KeyframeAnimatableIntegerValue extends KeyframeAnimatableValue<Inte
   }
 
   @Override
-  public KeyframeAnimation<Integer> createAnimation() {
+  public Animation<Integer> createAnimation() {
     if (!hasAnimation()) {
       return new StaticKeyframeAnimation<>(initialValue);
     }

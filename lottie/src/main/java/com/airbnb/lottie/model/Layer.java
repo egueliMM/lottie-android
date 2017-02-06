@@ -1,16 +1,19 @@
 package com.airbnb.lottie.model;
 
 import android.graphics.Color;
+import android.graphics.PointF;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 import android.util.Log;
 
 import com.airbnb.lottie.L;
+import com.airbnb.lottie.animatable.AnimatableValue;
 import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableFloatValue;
 import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableIntegerValue;
 import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatablePathValue;
 import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableScaleValue;
+import com.airbnb.lottie.utils.ScaleXY;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -86,7 +89,7 @@ public class Layer implements Transform {
       }
       if (opacity != null) {
         layer.opacity = new KeyframeAnimatableIntegerValue(opacity, layer.frameRate, composition, false, true);
-        if (L.DBG) Log.d(TAG, "\tOpacity=" + layer.opacity.getInitialValue());
+        if (L.DBG) Log.d(TAG, "\tOpacity=" + layer.opacity);
       }
 
       JSONObject rotation;
@@ -98,7 +101,7 @@ public class Layer implements Transform {
 
       if (rotation != null) {
         layer.rotation = new KeyframeAnimatableFloatValue(rotation, layer.frameRate, composition, false);
-        if (L.DBG) Log.d(TAG, "\tRotation=" + layer.rotation.getInitialValue());
+        if (L.DBG) Log.d(TAG, "\tRotation=" + layer.rotation);
       }
 
       JSONObject position = null;
@@ -228,12 +231,12 @@ public class Layer implements Transform {
   private int solidHeight;
   private int solidColor;
 
-  private KeyframeAnimatableIntegerValue opacity;
-  private KeyframeAnimatableFloatValue rotation;
-  private KeyframeAnimatablePathValue position;
+  private AnimatableValue<Integer> opacity;
+  private AnimatableValue<Float> rotation;
+  private AnimatableValue<PointF> position;
 
-  private KeyframeAnimatablePathValue anchor;
-  private KeyframeAnimatableScaleValue scale;
+  private AnimatableValue<PointF> anchor;
+  private AnimatableValue<ScaleXY> scale;
 
   private boolean hasOutAnimation;
   private boolean hasInAnimation;
@@ -253,7 +256,7 @@ public class Layer implements Transform {
   }
 
   @Override
-  public KeyframeAnimatablePathValue getAnchor() {
+  public AnimatableValue<PointF> getAnchor() {
     return anchor;
   }
 
@@ -296,7 +299,7 @@ public class Layer implements Transform {
   }
 
   @Override
-  public KeyframeAnimatableIntegerValue getOpacity() {
+  public AnimatableValue<Integer> getOpacity() {
     return opacity;
   }
 
@@ -305,17 +308,17 @@ public class Layer implements Transform {
   }
 
   @Override
-  public KeyframeAnimatablePathValue getPosition() {
+  public AnimatableValue<PointF> getPosition() {
     return position;
   }
 
   @Override
-  public KeyframeAnimatableFloatValue getRotation() {
+  public AnimatableValue<Float> getRotation() {
     return rotation;
   }
 
   @Override
-  public KeyframeAnimatableScaleValue getScale() {
+  public AnimatableValue<ScaleXY> getScale() {
     return scale;
   }
 
@@ -353,16 +356,16 @@ public class Layer implements Transform {
       }
       sb.append(prefix).append("\n");
     }
-    if (getPosition().hasAnimation() || getPosition().getInitialPoint().length() != 0) {
+    if (getPosition().hasAnimation()) {
       sb.append(prefix).append("\tPosition: ").append(getPosition()).append("\n");
     }
-    if (getRotation().hasAnimation() || getRotation().getInitialValue() != 0f) {
+    if (getRotation().hasAnimation()) {
       sb.append(prefix).append("\tRotation: ").append(getRotation()).append("\n");
     }
-    if (getScale().hasAnimation() || !getScale().getInitialValue().isDefault()) {
+    if (getScale().hasAnimation()) {
       sb.append(prefix).append("\tScale: ").append(getScale()).append("\n");
     }
-    if (getAnchor().hasAnimation() || getAnchor().getInitialPoint().length() != 0) {
+    if (getAnchor().hasAnimation()) {
       sb.append(prefix).append("\tAnchor: ").append(getAnchor()).append("\n");
     }
     if (!getMasks().isEmpty()) {

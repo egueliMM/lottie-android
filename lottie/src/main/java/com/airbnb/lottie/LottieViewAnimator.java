@@ -91,7 +91,7 @@ public class LottieViewAnimator {
         position.addUpdateListener(new Animation.AnimationListener<PointF>() {
           @Override
           public void onValueChanged(PointF progress) {
-            PointF initialPoint = layer.getPosition().getInitialPoint();
+            PointF initialPoint = layer.getPosition().getInitialValue();
             view.setTranslationX(progress.x - initialPoint.x);
             view.setTranslationY(progress.y - initialPoint.y);
           }
@@ -148,14 +148,14 @@ public class LottieViewAnimator {
         });
       }
       if (view.getWidth() > 0) {
-        setViewAnchor(view, layer.getAnchor().getInitialPoint());
+        setViewAnchor(view, layer.getAnchor().getInitialValue());
 
       } else {
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
           @Override
           public void onGlobalLayout() {
             view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            setViewAnchor(view, layer.getAnchor().getInitialPoint());
+            setViewAnchor(view, layer.getAnchor().getInitialValue());
           }
         });
       }

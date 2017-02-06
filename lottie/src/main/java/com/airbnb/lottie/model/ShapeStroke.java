@@ -2,6 +2,7 @@ package com.airbnb.lottie.model;
 
 import android.support.annotation.RestrictTo;
 
+import com.airbnb.lottie.animatable.AnimatableValue;
 import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableColorValue;
 import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableFloatValue;
 import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableIntegerValue;
@@ -31,7 +32,7 @@ public class ShapeStroke {
   private KeyframeAnimatableFloatValue offset;
   private final List<KeyframeAnimatableFloatValue> lineDashPattern = new ArrayList<>();
 
-  private final KeyframeAnimatableColorValue color;
+  private final AnimatableValue<Integer> color;
   private final KeyframeAnimatableIntegerValue opacity;
   private final KeyframeAnimatableFloatValue width;
   private final LineCapType capType;
@@ -74,7 +75,7 @@ public class ShapeStroke {
     }
   }
 
-  public KeyframeAnimatableColorValue getColor() {
+  public AnimatableValue<Integer> getColor() {
     return color;
   }
 

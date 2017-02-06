@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-abstract class KeyframeAnimatableValue<V, O> implements AnimatableValue {
+abstract class KeyframeAnimatableValue<V, O> implements AnimatableValue<V> {
   final List<V> keyValues = new ArrayList<>();
   final List<Float> keyTimes = new ArrayList<>();
   final List<Interpolator> interpolators = new ArrayList<>();
@@ -168,17 +168,12 @@ abstract class KeyframeAnimatableValue<V, O> implements AnimatableValue {
     return isDp ? composition.getScale() : 1f;
   }
 
-  O convertType(V value) {
-    //noinspection unchecked
-    return (O) value;
-  }
-
   public boolean hasAnimation() {
     return !keyValues.isEmpty();
   }
 
-  public O getInitialValue() {
-    return convertType(initialValue);
+  public V getInitialValue() {
+    return initialValue;
   }
 
   protected abstract V valueFromObject(Object object, float scale) throws JSONException;

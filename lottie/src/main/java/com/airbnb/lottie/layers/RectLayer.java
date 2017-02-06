@@ -152,7 +152,7 @@ class RectLayer extends AnimatableLayer {
       paint.setStyle(Paint.Style.FILL);
     }
 
-    void setShapeAlpha(KeyframeAnimation<Integer> shapeAlpha) {
+    void setShapeAlpha(Animation<Integer> shapeAlpha) {
       if (this.shapeAlpha != null) {
         removeAnimation(this.shapeAlpha);
         this.shapeAlpha.removeUpdateListener(alphaChangedListener);
@@ -163,7 +163,7 @@ class RectLayer extends AnimatableLayer {
       invalidateSelf();
     }
 
-    void setTransformAlpha(KeyframeAnimation<Integer> transformAlpha) {
+    void setTransformAlpha(Animation<Integer> transformAlpha) {
       if (this.transformAlpha != null) {
         removeAnimation(this.transformAlpha);
         this.transformAlpha.removeUpdateListener(alphaChangedListener);
@@ -289,7 +289,7 @@ class RectLayer extends AnimatableLayer {
       }
     }
 
-    void setRectCornerRadius(KeyframeAnimation<Float> rectCornerRadius) {
+    void setRectCornerRadius(Animation<Float> rectCornerRadius) {
       if (this.rectCornerRadius != null) {
         removeAnimation(rectCornerRadius);
         this.rectCornerRadius.removeUpdateListener(cornerRadiusChangedListener);
@@ -300,7 +300,7 @@ class RectLayer extends AnimatableLayer {
       invalidateSelf();
     }
 
-    void setRectPosition(KeyframeAnimation<PointF> rectPosition) {
+    void setRectPosition(Animation<PointF> rectPosition) {
       if (this.rectPosition != null) {
         removeAnimation(this.rectPosition);
         this.rectPosition.removeUpdateListener(rectPositionChangedListener);
@@ -311,7 +311,7 @@ class RectLayer extends AnimatableLayer {
       invalidateSelf();
     }
 
-    void setRectSize(KeyframeAnimation<PointF> rectSize) {
+    void setRectSize(Animation<PointF> rectSize) {
       if (this.rectSize != null) {
         removeAnimation(this.rectSize);
         this.rectSize.removeUpdateListener(rectSizeChangedListener);

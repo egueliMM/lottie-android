@@ -7,6 +7,7 @@ import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
 import com.airbnb.lottie.animatable.AnimatableValue;
+import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.animation.keyframe.KeyframeAnimation;
 import com.airbnb.lottie.animation.keyframe.PathKeyframeAnimation;
 import com.airbnb.lottie.animation.keyframe.StaticKeyframeAnimation;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class KeyframeAnimatablePathValue implements AnimatableValue {
+public class KeyframeAnimatablePathValue implements AnimatableValue<PointF> {
 
   private final List<Float> keyTimes = new ArrayList<>();
   private final List<Interpolator> interpolators = new ArrayList<>();
@@ -175,7 +176,7 @@ public class KeyframeAnimatablePathValue implements AnimatableValue {
   }
 
   @Override
-  public KeyframeAnimation<PointF> createAnimation() {
+  public Animation<PointF> createAnimation() {
     if (!hasAnimation()) {
       return new StaticKeyframeAnimation<>(initialPoint);
     }
@@ -190,7 +191,7 @@ public class KeyframeAnimatablePathValue implements AnimatableValue {
     return animationPath.hasSegments();
   }
 
-  public PointF getInitialPoint() {
+  public PointF getInitialValue() {
     return initialPoint;
   }
 

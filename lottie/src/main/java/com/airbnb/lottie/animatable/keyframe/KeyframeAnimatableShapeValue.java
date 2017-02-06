@@ -4,7 +4,7 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.support.annotation.RestrictTo;
 
-import com.airbnb.lottie.animation.keyframe.KeyframeAnimation;
+import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.animation.keyframe.ShapeKeyframeAnimation;
 import com.airbnb.lottie.animation.keyframe.StaticKeyframeAnimation;
 import com.airbnb.lottie.model.CubicCurveData;
@@ -140,7 +140,7 @@ public class KeyframeAnimatableShapeValue extends KeyframeAnimatableValue<ShapeD
   }
 
   @Override
-  public KeyframeAnimation<Path> createAnimation() {
+  public Animation<Path> createAnimation() {
     if (!hasAnimation()) {
       return new StaticKeyframeAnimation<>(convertType(initialValue));
     }
@@ -150,7 +150,6 @@ public class KeyframeAnimatableShapeValue extends KeyframeAnimatableValue<ShapeD
     return animation;
   }
 
-  @Override
   Path convertType(ShapeData shapeData) {
     convertTypePath.reset();
     MiscUtils.getPathFromData(shapeData, convertTypePath);

@@ -2,9 +2,11 @@ package com.airbnb.lottie.animatable;
 
 import com.airbnb.lottie.animation.Animation;
 
-public interface AnimatableValue {
+public interface AnimatableValue<T> {
 
-  Animation createAnimation();
+  Animation<T> createAnimation();
 
   boolean hasAnimation();
+
+  T getInitialValue();
 }
