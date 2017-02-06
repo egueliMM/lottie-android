@@ -150,6 +150,7 @@ public class KeyframeAnimatableShapeValue extends KeyframeAnimatableValue<ShapeD
     return animation;
   }
 
+  @Override
   Path convertType(ShapeData shapeData) {
     convertTypePath.reset();
     MiscUtils.getPathFromData(shapeData, convertTypePath);
