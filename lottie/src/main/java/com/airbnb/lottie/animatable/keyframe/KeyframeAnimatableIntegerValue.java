@@ -12,14 +12,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class AnimatableIntegerValue extends KeyframeAnimatableValue<Integer, Integer> {
+public class KeyframeAnimatableIntegerValue extends KeyframeAnimatableValue<Integer, Integer> {
 
-  public AnimatableIntegerValue(LottieComposition composition, Integer initialValue) {
+  public KeyframeAnimatableIntegerValue(LottieComposition composition, Integer initialValue) {
     super(composition);
     this.initialValue = initialValue;
   }
 
-  public AnimatableIntegerValue(JSONObject json, int frameRate, LottieComposition composition, boolean isDp, boolean remap100To255) {
+  public KeyframeAnimatableIntegerValue(JSONObject json, int frameRate, LottieComposition composition, boolean isDp, boolean remap100To255) {
     super(json, frameRate, composition, isDp);
     if (remap100To255) {
       initialValue = initialValue * 255 / 100;

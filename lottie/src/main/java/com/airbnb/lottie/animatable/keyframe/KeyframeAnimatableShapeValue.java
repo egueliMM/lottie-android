@@ -19,12 +19,12 @@ import org.json.JSONObject;
 import static com.airbnb.lottie.utils.MiscUtils.addPoints;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class AnimatableShapeValue extends KeyframeAnimatableValue<ShapeData, Path> {
+public class KeyframeAnimatableShapeValue extends KeyframeAnimatableValue<ShapeData, Path> {
   private final Path convertTypePath = new Path();
 
   private boolean closed;
 
-  public AnimatableShapeValue(JSONObject json, int frameRate, LottieComposition composition, boolean closed) {
+  public KeyframeAnimatableShapeValue(JSONObject json, int frameRate, LottieComposition composition, boolean closed) {
     super(null, frameRate, composition, true);
     this.closed = closed;
     init(json);

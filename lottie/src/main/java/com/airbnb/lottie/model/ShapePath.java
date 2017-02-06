@@ -4,7 +4,7 @@ import android.support.annotation.RestrictTo;
 import android.util.Log;
 
 import com.airbnb.lottie.L;
-import com.airbnb.lottie.animatable.keyframe.AnimatableShapeValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableShapeValue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,7 +15,7 @@ public class ShapePath {
 
   private final String name;
   private final int index;
-  private AnimatableShapeValue shapePath;
+  private KeyframeAnimatableShapeValue shapePath;
 
   ShapePath(JSONObject json, int frameRate, LottieComposition composition) {
     try {
@@ -40,7 +40,7 @@ public class ShapePath {
     JSONObject shape;
     try {
       shape = json.getJSONObject("ks");
-      shapePath = new AnimatableShapeValue(shape, frameRate, composition, closed);
+      shapePath = new KeyframeAnimatableShapeValue(shape, frameRate, composition, closed);
     } catch (JSONException e) {
       // Ignore
     }
@@ -48,7 +48,7 @@ public class ShapePath {
     if (L.DBG) Log.d(TAG, "Parsed new shape path " + toString());
   }
 
-  public AnimatableShapeValue getShapePath() {
+  public KeyframeAnimatableShapeValue getShapePath() {
     return shapePath;
   }
 

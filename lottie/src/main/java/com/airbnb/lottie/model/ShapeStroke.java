@@ -2,9 +2,9 @@ package com.airbnb.lottie.model;
 
 import android.support.annotation.RestrictTo;
 
-import com.airbnb.lottie.animatable.keyframe.AnimatableColorValue;
-import com.airbnb.lottie.animatable.keyframe.AnimatableFloatValue;
-import com.airbnb.lottie.animatable.keyframe.AnimatableIntegerValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableColorValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableFloatValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableIntegerValue;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,25 +28,25 @@ public class ShapeStroke {
     Bevel
   }
 
-  private AnimatableFloatValue offset;
-  private final List<AnimatableFloatValue> lineDashPattern = new ArrayList<>();
+  private KeyframeAnimatableFloatValue offset;
+  private final List<KeyframeAnimatableFloatValue> lineDashPattern = new ArrayList<>();
 
-  private final AnimatableColorValue color;
-  private final AnimatableIntegerValue opacity;
-  private final AnimatableFloatValue width;
+  private final KeyframeAnimatableColorValue color;
+  private final KeyframeAnimatableIntegerValue opacity;
+  private final KeyframeAnimatableFloatValue width;
   private final LineCapType capType;
   private final LineJoinType joinType;
 
   ShapeStroke(JSONObject json, int frameRate, LottieComposition composition) {
     try {
       JSONObject colorJson = json.getJSONObject("c");
-      color = new AnimatableColorValue(colorJson, frameRate, composition);
+      color = new KeyframeAnimatableColorValue(colorJson, frameRate, composition);
 
       JSONObject widthJson = json.getJSONObject("w");
-      width = new AnimatableFloatValue(widthJson, frameRate, composition);
+      width = new KeyframeAnimatableFloatValue(widthJson, frameRate, composition);
 
       JSONObject opacityJson = json.getJSONObject("o");
-      opacity = new AnimatableIntegerValue(opacityJson, frameRate, composition, false, true);
+      opacity = new KeyframeAnimatableIntegerValue(opacityJson, frameRate, composition, false, true);
 
       capType = LineCapType.values()[json.getInt("lc") - 1];
       joinType = LineJoinType.values()[json.getInt("lj") - 1];
@@ -58,10 +58,10 @@ public class ShapeStroke {
           String n = dashJson.getString("n");
           if (n.equals("o")) {
             JSONObject value = dashJson.getJSONObject("v");
-            offset = new AnimatableFloatValue(value, frameRate, composition);
+            offset = new KeyframeAnimatableFloatValue(value, frameRate, composition);
           } else if (n.equals("d") || n.equals("g")) {
             JSONObject value = dashJson.getJSONObject("v");
-            lineDashPattern.add(new AnimatableFloatValue(value, frameRate, composition));
+            lineDashPattern.add(new KeyframeAnimatableFloatValue(value, frameRate, composition));
           }
         }
         if (lineDashPattern.size() == 1) {
@@ -74,23 +74,23 @@ public class ShapeStroke {
     }
   }
 
-  public AnimatableColorValue getColor() {
+  public KeyframeAnimatableColorValue getColor() {
     return color;
   }
 
-  public AnimatableIntegerValue getOpacity() {
+  public KeyframeAnimatableIntegerValue getOpacity() {
     return opacity;
   }
 
-  public AnimatableFloatValue getWidth() {
+  public KeyframeAnimatableFloatValue getWidth() {
     return width;
   }
 
-  public List<AnimatableFloatValue> getLineDashPattern() {
+  public List<KeyframeAnimatableFloatValue> getLineDashPattern() {
     return lineDashPattern;
   }
 
-  public AnimatableFloatValue getDashOffset() {
+  public KeyframeAnimatableFloatValue getDashOffset() {
     return offset;
   }
 

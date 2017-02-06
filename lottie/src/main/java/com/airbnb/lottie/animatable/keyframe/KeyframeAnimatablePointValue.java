@@ -14,9 +14,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class AnimatablePointValue extends KeyframeAnimatableValue<PointF, PointF> {
+public class KeyframeAnimatablePointValue extends KeyframeAnimatableValue<PointF, PointF> {
 
-  public AnimatablePointValue(JSONObject pointValues, int frameRate, LottieComposition composition) {
+  public KeyframeAnimatablePointValue(JSONObject pointValues, int frameRate, LottieComposition composition) {
     super(pointValues, frameRate, composition, true);
   }
 

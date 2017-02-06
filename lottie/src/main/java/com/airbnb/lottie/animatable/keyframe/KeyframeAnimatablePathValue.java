@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class AnimatablePathValue implements AnimatableValue {
+public class KeyframeAnimatablePathValue implements AnimatableValue {
 
   private final List<Float> keyTimes = new ArrayList<>();
   private final List<Interpolator> interpolators = new ArrayList<>();
@@ -39,13 +39,13 @@ public class AnimatablePathValue implements AnimatableValue {
   /**
    * Create a default static animatable path.
    */
-  public AnimatablePathValue(LottieComposition composition) {
+  public KeyframeAnimatablePathValue(LottieComposition composition) {
     frameRate = 0;
     this.composition = composition;
     this.initialPoint = new PointF(0, 0);
   }
 
-  public AnimatablePathValue(JSONObject pointValues, int frameRate, LottieComposition composition) {
+  public KeyframeAnimatablePathValue(JSONObject pointValues, int frameRate, LottieComposition composition) {
     this.frameRate = frameRate;
     this.composition = composition;
 

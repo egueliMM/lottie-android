@@ -10,7 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.airbnb.lottie.animatable.keyframe.AnimatableFloatValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableFloatValue;
 import com.airbnb.lottie.animation.keyframe.KeyframeAnimation;
 import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.model.RectangleShape;
@@ -57,7 +57,7 @@ class RectLayer extends AnimatableLayer {
       strokeLayer.setLineWidth(stroke.getWidth().createAnimation());
       if (!stroke.getLineDashPattern().isEmpty()) {
         List<Animation<Float>> dashPatternAnimations = new ArrayList<>(stroke.getLineDashPattern().size());
-        for (AnimatableFloatValue dashPattern : stroke.getLineDashPattern()) {
+        for (KeyframeAnimatableFloatValue dashPattern : stroke.getLineDashPattern()) {
           dashPatternAnimations.add(dashPattern.createAnimation());
         }
         strokeLayer.setDashPattern(dashPatternAnimations, stroke.getDashOffset().createAnimation());

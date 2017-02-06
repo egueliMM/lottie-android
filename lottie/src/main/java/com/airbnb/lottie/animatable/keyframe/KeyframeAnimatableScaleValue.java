@@ -13,14 +13,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class AnimatableScaleValue extends KeyframeAnimatableValue<ScaleXY, ScaleXY> {
+public class KeyframeAnimatableScaleValue extends KeyframeAnimatableValue<ScaleXY, ScaleXY> {
 
-  public AnimatableScaleValue(LottieComposition composition) {
+  public KeyframeAnimatableScaleValue(LottieComposition composition) {
     super(composition);
     initialValue = new ScaleXY();
   }
 
-  public AnimatableScaleValue(JSONObject scaleValues, int frameRate, LottieComposition composition, boolean isDp) {
+  public KeyframeAnimatableScaleValue(JSONObject scaleValues, int frameRate, LottieComposition composition, boolean isDp) {
     super(scaleValues, frameRate, composition, isDp);
   }
 

@@ -2,8 +2,8 @@ package com.airbnb.lottie.model;
 
 import android.support.annotation.RestrictTo;
 
-import com.airbnb.lottie.animatable.keyframe.AnimatableIntegerValue;
-import com.airbnb.lottie.animatable.keyframe.AnimatableShapeValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableIntegerValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableShapeValue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +19,7 @@ public class Mask {
   }
 
   private final MaskMode maskMode;
-  private final AnimatableShapeValue maskPath;
+  private final KeyframeAnimatableShapeValue maskPath;
 
   Mask(JSONObject json, int frameRate, LottieComposition composition) {
     try {
@@ -42,9 +42,9 @@ public class Mask {
           maskMode = MaskMode.MaskModeUnknown;
       }
 
-      maskPath = new AnimatableShapeValue(json.getJSONObject("pt"), frameRate, composition, closed);
+      maskPath = new KeyframeAnimatableShapeValue(json.getJSONObject("pt"), frameRate, composition, closed);
       //noinspection unused
-      AnimatableIntegerValue opacity = new AnimatableIntegerValue(json.getJSONObject("o"), frameRate, composition, false, true);
+      KeyframeAnimatableIntegerValue opacity = new KeyframeAnimatableIntegerValue(json.getJSONObject("o"), frameRate, composition, false, true);
       // TODO: use this.
     } catch (JSONException e) {
       throw new IllegalArgumentException("Unable to parse mask. " + json, e);
@@ -56,7 +56,7 @@ public class Mask {
     return maskMode;
   }
 
-  public AnimatableShapeValue getMaskPath() {
+  public KeyframeAnimatableShapeValue getMaskPath() {
     return maskPath;
   }
 }

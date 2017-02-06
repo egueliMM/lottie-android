@@ -3,8 +3,8 @@ package com.airbnb.lottie.layers;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 
-import com.airbnb.lottie.animatable.keyframe.AnimatableFloatValue;
-import com.airbnb.lottie.animatable.keyframe.AnimatableScaleValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableFloatValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableScaleValue;
 import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.model.ShapeFill;
 import com.airbnb.lottie.model.ShapePath;
@@ -29,7 +29,7 @@ class ShapeLayerView extends AnimatableLayer {
     setPosition(transformModel.getPosition().createAnimation());
     setRotation(transformModel.getRotation().createAnimation());
 
-    AnimatableScaleValue scale = transformModel.getScale();
+    KeyframeAnimatableScaleValue scale = transformModel.getScale();
     setTransform(transformModel.getScale().createAnimation());
     if (fill != null) {
       fillLayer = new ShapeLayer(getCallback());
@@ -51,7 +51,7 @@ class ShapeLayerView extends AnimatableLayer {
       strokeLayer.setLineWidth(stroke.getWidth().createAnimation());
       if (!stroke.getLineDashPattern().isEmpty()) {
         List<Animation<Float>> dashPatternAnimations = new ArrayList<>(stroke.getLineDashPattern().size());
-        for (AnimatableFloatValue dashPattern : stroke.getLineDashPattern()) {
+        for (KeyframeAnimatableFloatValue dashPattern : stroke.getLineDashPattern()) {
           dashPatternAnimations.add(dashPattern.createAnimation());
         }
         strokeLayer.setDashPattern(dashPatternAnimations, stroke.getDashOffset().createAnimation());

@@ -12,18 +12,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class AnimatableFloatValue extends KeyframeAnimatableValue<Float, Float> {
+public class KeyframeAnimatableFloatValue extends KeyframeAnimatableValue<Float, Float> {
 
-  public AnimatableFloatValue(LottieComposition composition, Float initialValue) {
+  public KeyframeAnimatableFloatValue(LottieComposition composition, Float initialValue) {
     super(composition);
     this.initialValue = initialValue;
   }
 
-  public AnimatableFloatValue(JSONObject json, int frameRate, LottieComposition composition) {
+  public KeyframeAnimatableFloatValue(JSONObject json, int frameRate, LottieComposition composition) {
     this(json, frameRate, composition, true);
   }
 
-  public AnimatableFloatValue(JSONObject json, int frameRate, LottieComposition composition, boolean isDp) {
+  public KeyframeAnimatableFloatValue(JSONObject json, int frameRate, LottieComposition composition, boolean isDp) {
     super(json, frameRate, composition, isDp);
   }
 

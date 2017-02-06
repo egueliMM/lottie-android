@@ -7,10 +7,10 @@ import android.support.annotation.RestrictTo;
 import android.util.Log;
 
 import com.airbnb.lottie.L;
-import com.airbnb.lottie.animatable.keyframe.AnimatableFloatValue;
-import com.airbnb.lottie.animatable.keyframe.AnimatableIntegerValue;
-import com.airbnb.lottie.animatable.keyframe.AnimatablePathValue;
-import com.airbnb.lottie.animatable.keyframe.AnimatableScaleValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableFloatValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableIntegerValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatablePathValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableScaleValue;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -85,7 +85,7 @@ public class Layer implements Transform {
         // Do nothing.
       }
       if (opacity != null) {
-        layer.opacity = new AnimatableIntegerValue(opacity, layer.frameRate, composition, false, true);
+        layer.opacity = new KeyframeAnimatableIntegerValue(opacity, layer.frameRate, composition, false, true);
         if (L.DBG) Log.d(TAG, "\tOpacity=" + layer.opacity.getInitialValue());
       }
 
@@ -97,7 +97,7 @@ public class Layer implements Transform {
       }
 
       if (rotation != null) {
-        layer.rotation = new AnimatableFloatValue(rotation, layer.frameRate, composition, false);
+        layer.rotation = new KeyframeAnimatableFloatValue(rotation, layer.frameRate, composition, false);
         if (L.DBG) Log.d(TAG, "\tRotation=" + layer.rotation.getInitialValue());
       }
 
@@ -108,7 +108,7 @@ public class Layer implements Transform {
         // Do nothing.
       }
       if (position != null) {
-        layer.position = new AnimatablePathValue(position, layer.frameRate, composition);
+        layer.position = new KeyframeAnimatablePathValue(position, layer.frameRate, composition);
         if (L.DBG) Log.d(TAG, "\tPosition=" + layer.getPosition().toString());
       }
 
@@ -119,7 +119,7 @@ public class Layer implements Transform {
         // DO nothing.
       }
       if (anchor != null) {
-        layer.anchor = new AnimatablePathValue(anchor, layer.frameRate, composition);
+        layer.anchor = new KeyframeAnimatablePathValue(anchor, layer.frameRate, composition);
         if (L.DBG) Log.d(TAG, "\tAnchor=" + layer.anchor.toString());
       }
 
@@ -130,7 +130,7 @@ public class Layer implements Transform {
         // Do nothing.
       }
       if (scale != null) {
-        layer.scale = new AnimatableScaleValue(scale, layer.frameRate, composition, false);
+        layer.scale = new KeyframeAnimatableScaleValue(scale, layer.frameRate, composition, false);
         if (L.DBG) Log.d(TAG, "\tScale=" + layer.scale.toString());
       }
 
@@ -228,12 +228,12 @@ public class Layer implements Transform {
   private int solidHeight;
   private int solidColor;
 
-  private AnimatableIntegerValue opacity;
-  private AnimatableFloatValue rotation;
-  private AnimatablePathValue position;
+  private KeyframeAnimatableIntegerValue opacity;
+  private KeyframeAnimatableFloatValue rotation;
+  private KeyframeAnimatablePathValue position;
 
-  private AnimatablePathValue anchor;
-  private AnimatableScaleValue scale;
+  private KeyframeAnimatablePathValue anchor;
+  private KeyframeAnimatableScaleValue scale;
 
   private boolean hasOutAnimation;
   private boolean hasInAnimation;
@@ -253,7 +253,7 @@ public class Layer implements Transform {
   }
 
   @Override
-  public AnimatablePathValue getAnchor() {
+  public KeyframeAnimatablePathValue getAnchor() {
     return anchor;
   }
 
@@ -296,7 +296,7 @@ public class Layer implements Transform {
   }
 
   @Override
-  public AnimatableIntegerValue getOpacity() {
+  public KeyframeAnimatableIntegerValue getOpacity() {
     return opacity;
   }
 
@@ -305,17 +305,17 @@ public class Layer implements Transform {
   }
 
   @Override
-  public AnimatablePathValue getPosition() {
+  public KeyframeAnimatablePathValue getPosition() {
     return position;
   }
 
   @Override
-  public AnimatableFloatValue getRotation() {
+  public KeyframeAnimatableFloatValue getRotation() {
     return rotation;
   }
 
   @Override
-  public AnimatableScaleValue getScale() {
+  public KeyframeAnimatableScaleValue getScale() {
     return scale;
   }
 

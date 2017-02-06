@@ -5,10 +5,10 @@ import android.support.annotation.RestrictTo;
 import android.util.Log;
 
 import com.airbnb.lottie.L;
-import com.airbnb.lottie.animatable.keyframe.AnimatableFloatValue;
-import com.airbnb.lottie.animatable.keyframe.AnimatableIntegerValue;
-import com.airbnb.lottie.animatable.keyframe.AnimatablePathValue;
-import com.airbnb.lottie.animatable.keyframe.AnimatableScaleValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableFloatValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableIntegerValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatablePathValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableScaleValue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,19 +18,19 @@ public class ShapeTransform implements Transform {
   private static final String TAG = ShapeTransform.class.getSimpleName();
 
   private final Rect compBounds;
-  private final AnimatablePathValue position;
-  private final AnimatablePathValue anchor;
-  private final AnimatableScaleValue scale;
-  private final AnimatableFloatValue rotation;
-  private final AnimatableIntegerValue opacity;
+  private final KeyframeAnimatablePathValue position;
+  private final KeyframeAnimatablePathValue anchor;
+  private final KeyframeAnimatableScaleValue scale;
+  private final KeyframeAnimatableFloatValue rotation;
+  private final KeyframeAnimatableIntegerValue opacity;
 
   public ShapeTransform(LottieComposition composition) {
     this.compBounds = composition.getBounds();
-    this.position = new AnimatablePathValue(composition);
-    this.anchor = new AnimatablePathValue(composition);
-    this.scale = new AnimatableScaleValue(composition);
-    this.rotation = new AnimatableFloatValue(composition, 0f);
-    this.opacity = new AnimatableIntegerValue(composition, 255);
+    this.position = new KeyframeAnimatablePathValue(composition);
+    this.anchor = new KeyframeAnimatablePathValue(composition);
+    this.scale = new KeyframeAnimatableScaleValue(composition);
+    this.rotation = new KeyframeAnimatableFloatValue(composition, 0f);
+    this.opacity = new KeyframeAnimatableIntegerValue(composition, 255);
   }
 
   ShapeTransform(JSONObject json, int frameRate, LottieComposition composition) {
@@ -42,7 +42,7 @@ public class ShapeTransform implements Transform {
     } catch (JSONException e) {
       throw new IllegalStateException("Transform has no position.");
     }
-    position = new AnimatablePathValue(jsonPosition, frameRate, composition);
+    position = new KeyframeAnimatablePathValue(jsonPosition, frameRate, composition);
 
     JSONObject jsonAnchor;
     try {
@@ -50,7 +50,7 @@ public class ShapeTransform implements Transform {
     } catch (JSONException e) {
       throw new IllegalStateException("Transform has no anchor.");
     }
-    anchor = new AnimatablePathValue(jsonAnchor, frameRate, composition);
+    anchor = new KeyframeAnimatablePathValue(jsonAnchor, frameRate, composition);
 
     JSONObject jsonScale;
     try {
@@ -58,7 +58,7 @@ public class ShapeTransform implements Transform {
     } catch (JSONException e) {
       throw new IllegalStateException("Transform has no scale.");
     }
-    scale = new AnimatableScaleValue(jsonScale, frameRate, composition, false);
+    scale = new KeyframeAnimatableScaleValue(jsonScale, frameRate, composition, false);
 
     JSONObject jsonRotation;
     try {
@@ -66,7 +66,7 @@ public class ShapeTransform implements Transform {
     } catch (JSONException e) {
       throw new IllegalStateException("Transform has no rotation.");
     }
-    rotation = new AnimatableFloatValue(jsonRotation, frameRate, composition, false);
+    rotation = new KeyframeAnimatableFloatValue(jsonRotation, frameRate, composition, false);
 
     JSONObject jsonOpacity;
     try {
@@ -74,7 +74,7 @@ public class ShapeTransform implements Transform {
     } catch (JSONException e) {
       throw new IllegalStateException("Transform has no opacity.");
     }
-    opacity = new AnimatableIntegerValue(jsonOpacity, frameRate, composition, false, true);
+    opacity = new KeyframeAnimatableIntegerValue(jsonOpacity, frameRate, composition, false, true);
 
     if (L.DBG) Log.d(TAG, "Parsed new shape transform " + toString());
   }
@@ -83,23 +83,23 @@ public class ShapeTransform implements Transform {
     return compBounds;
   }
 
-  public AnimatablePathValue getPosition() {
+  public KeyframeAnimatablePathValue getPosition() {
     return position;
   }
 
-  public AnimatablePathValue getAnchor() {
+  public KeyframeAnimatablePathValue getAnchor() {
     return anchor;
   }
 
-  public AnimatableScaleValue getScale() {
+  public KeyframeAnimatableScaleValue getScale() {
     return scale;
   }
 
-  public AnimatableFloatValue getRotation() {
+  public KeyframeAnimatableFloatValue getRotation() {
     return rotation;
   }
 
-  public AnimatableIntegerValue getOpacity() {
+  public KeyframeAnimatableIntegerValue getOpacity() {
     return opacity;
   }
 

@@ -13,9 +13,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class AnimatableColorValue extends KeyframeAnimatableValue<Integer, Integer> {
+public class KeyframeAnimatableColorValue extends KeyframeAnimatableValue<Integer, Integer> {
 
-  public AnimatableColorValue(JSONObject json, int frameRate, LottieComposition composition) {
+  public KeyframeAnimatableColorValue(JSONObject json, int frameRate, LottieComposition composition) {
     super(json, frameRate, composition, false);
   }
 
@@ -54,6 +54,6 @@ public class AnimatableColorValue extends KeyframeAnimatableValue<Integer, Integ
 
   @Override
   public String toString() {
-    return "AnimatableColorValue{" + "initialValue=" + initialValue + '}';
+    return "KeyframeAnimatableColorValue{" + "initialValue=" + initialValue + '}';
   }
 }

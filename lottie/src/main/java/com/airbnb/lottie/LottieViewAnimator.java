@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.LinearInterpolator;
 
-import com.airbnb.lottie.animation.keyframe.KeyframeAnimation;
 import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.model.Layer;
 import com.airbnb.lottie.model.LottieComposition;
@@ -88,7 +87,7 @@ public class LottieViewAnimator {
       }
 
       if (layer.getPosition().hasAnimation()) {
-        KeyframeAnimation<PointF> position = layer.getPosition().createAnimation();
+        Animation<PointF> position = layer.getPosition().createAnimation();
         position.addUpdateListener(new Animation.AnimationListener<PointF>() {
           @Override
           public void onValueChanged(PointF progress) {
@@ -101,7 +100,7 @@ public class LottieViewAnimator {
       }
 
       if (layer.getScale().hasAnimation()) {
-        KeyframeAnimation<ScaleXY> scale = layer.getScale().createAnimation();
+        Animation<ScaleXY> scale = layer.getScale().createAnimation();
         scale.addUpdateListener(new Animation.AnimationListener<ScaleXY>() {
           @Override
           public void onValueChanged(ScaleXY scale) {
@@ -116,7 +115,7 @@ public class LottieViewAnimator {
       view.setScaleY(initialScale.getScaleY());
 
       if (layer.getRotation().hasAnimation()) {
-        KeyframeAnimation<Float> rotation = layer.getRotation().createAnimation();
+        Animation<Float> rotation = layer.getRotation().createAnimation();
         rotation.addUpdateListener(new Animation.AnimationListener<Float>() {
           @Override
           public void onValueChanged(Float rotation) {
@@ -128,7 +127,7 @@ public class LottieViewAnimator {
       view.setRotation(layer.getRotation().getInitialValue());
 
       if (layer.getOpacity().hasAnimation()) {
-        KeyframeAnimation<Integer> opacity = layer.getOpacity().createAnimation();
+        Animation<Integer> opacity = layer.getOpacity().createAnimation();
         opacity.addUpdateListener(new Animation.AnimationListener<Integer>() {
           @Override
           public void onValueChanged(Integer progress) {
@@ -140,7 +139,7 @@ public class LottieViewAnimator {
       view.setAlpha(layer.getOpacity().getInitialValue() / 255f);
 
       if (layer.getAnchor().hasAnimation()) {
-        KeyframeAnimation<PointF> anchor = layer.getAnchor().createAnimation();
+        Animation<PointF> anchor = layer.getAnchor().createAnimation();
         anchor.addUpdateListener(new Animation.AnimationListener<PointF>() {
           @Override
           public void onValueChanged(PointF anchor) {

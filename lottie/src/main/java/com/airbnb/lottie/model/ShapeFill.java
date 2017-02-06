@@ -4,8 +4,8 @@ import android.support.annotation.RestrictTo;
 import android.util.Log;
 
 import com.airbnb.lottie.L;
-import com.airbnb.lottie.animatable.keyframe.AnimatableColorValue;
-import com.airbnb.lottie.animatable.keyframe.AnimatableIntegerValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableColorValue;
+import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableIntegerValue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,8 +15,8 @@ public class ShapeFill {
   private static final String TAG = ShapeFill.class.getSimpleName();
 
   private boolean fillEnabled;
-  private AnimatableColorValue color;
-  private AnimatableIntegerValue opacity;
+  private KeyframeAnimatableColorValue color;
+  private KeyframeAnimatableIntegerValue opacity;
 
   ShapeFill(JSONObject json, int frameRate, LottieComposition composition) {
     JSONObject jsonColor = null;
@@ -26,7 +26,7 @@ public class ShapeFill {
       // Do nothing.
     }
     if (jsonColor != null) {
-      color = new AnimatableColorValue(jsonColor, frameRate, composition);
+      color = new KeyframeAnimatableColorValue(jsonColor, frameRate, composition);
     }
 
     JSONObject jsonOpacity = null;
@@ -36,7 +36,7 @@ public class ShapeFill {
       // Do nothing.
     }
     if (jsonOpacity != null) {
-      opacity = new AnimatableIntegerValue(jsonOpacity, frameRate, composition, false, true);
+      opacity = new KeyframeAnimatableIntegerValue(jsonOpacity, frameRate, composition, false, true);
     }
 
     try {
@@ -47,11 +47,11 @@ public class ShapeFill {
     if (L.DBG) Log.d(TAG, "Parsed new shape fill " + toString());
   }
 
-  public AnimatableColorValue getColor() {
+  public KeyframeAnimatableColorValue getColor() {
     return color;
   }
 
-  public AnimatableIntegerValue getOpacity() {
+  public KeyframeAnimatableIntegerValue getOpacity() {
     return opacity;
   }
 
