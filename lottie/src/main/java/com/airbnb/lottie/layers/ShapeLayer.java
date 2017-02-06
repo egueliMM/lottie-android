@@ -16,55 +16,56 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.airbnb.lottie.animation.KeyframeAnimation;
+import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.model.ShapeStroke;
 import com.airbnb.lottie.utils.ScaleXY;
 
 import java.util.List;
 
 class ShapeLayer extends AnimatableLayer {
-  private final KeyframeAnimation.AnimationListener<Path> pathChangedListener = new KeyframeAnimation.AnimationListener<Path>() {
+  private final Animation.AnimationListener<Path> pathChangedListener = new Animation.AnimationListener<Path>() {
     @Override
     public void onValueChanged(Path value) {
       onPathChanged();
     }
   };
 
-  private final KeyframeAnimation.AnimationListener<Integer> alphaChangedListener = new KeyframeAnimation.AnimationListener<Integer>() {
+  private final Animation.AnimationListener<Integer> alphaChangedListener = new Animation.AnimationListener<Integer>() {
     @Override
     public void onValueChanged(Integer value) {
       invalidateSelf();
     }
   };
 
-  private final KeyframeAnimation.AnimationListener<Integer> colorChangedListener = new KeyframeAnimation.AnimationListener<Integer>() {
+  private final Animation.AnimationListener<Integer> colorChangedListener = new Animation.AnimationListener<Integer>() {
     @Override
     public void onValueChanged(Integer value) {
       onColorChanged();
     }
   };
 
-  private final KeyframeAnimation.AnimationListener<Float> lineWidthChangedListener = new KeyframeAnimation.AnimationListener<Float>() {
+  private final Animation.AnimationListener<Float> lineWidthChangedListener = new Animation.AnimationListener<Float>() {
     @Override
     public void onValueChanged(Float value) {
       onLineWidthChanged();
     }
   };
 
-  private final KeyframeAnimation.AnimationListener<Float> dashPatternChangedListener = new KeyframeAnimation.AnimationListener<Float>() {
+  private final Animation.AnimationListener<Float> dashPatternChangedListener = new Animation.AnimationListener<Float>() {
     @Override
     public void onValueChanged(Float value) {
       onDashPatternChanged();
     }
   };
 
-  private final KeyframeAnimation.AnimationListener<Float> strokeChangedListener = new KeyframeAnimation.AnimationListener<Float>() {
+  private final Animation.AnimationListener<Float> strokeChangedListener = new Animation.AnimationListener<Float>() {
     @Override
     public void onValueChanged(Float value) {
       onPathPropertiesChanged();
     }
   };
 
-  private final KeyframeAnimation.AnimationListener<ScaleXY> scaleChangedListener = new KeyframeAnimation.AnimationListener<ScaleXY>() {
+  private final Animation.AnimationListener<ScaleXY> scaleChangedListener = new Animation.AnimationListener<ScaleXY>() {
     @Override
     public void onValueChanged(ScaleXY value) {
       onPathPropertiesChanged();
@@ -91,17 +92,17 @@ class ShapeLayer extends AnimatableLayer {
   private final RectF tempRect = new RectF();
   private final Matrix scaleMatrix = new Matrix();
 
-  private KeyframeAnimation<Path> path;
-  private KeyframeAnimation<Integer> color;
-  private KeyframeAnimation<Float> lineWidth;
-  @Nullable private KeyframeAnimation<Float> strokeStart;
-  @Nullable private KeyframeAnimation<Float> strokeEnd;
-  @Nullable private KeyframeAnimation<Float> strokeOffset;
+  private Animation<Path> path;
+  private Animation<Integer> color;
+  private Animation<Float> lineWidth;
+  @Nullable private Animation<Float> strokeStart;
+  @Nullable private Animation<Float> strokeEnd;
+  @Nullable private Animation<Float> strokeOffset;
 
-  private KeyframeAnimation<Integer> shapeAlpha;
-  private KeyframeAnimation<Integer> transformAlpha;
-  private List<KeyframeAnimation<Float>> lineDashPattern;
-  private KeyframeAnimation<Float> lineDashPatternOffset;
+  private Animation<Integer> shapeAlpha;
+  private Animation<Integer> transformAlpha;
+  private List<Animation<Float>> lineDashPattern;
+  private Animation<Float> lineDashPatternOffset;
 
   ShapeLayer(Drawable.Callback callback) {
     super(callback);
@@ -114,7 +115,7 @@ class ShapeLayer extends AnimatableLayer {
     invalidateSelf();
   }
 
-  public void setColor(KeyframeAnimation<Integer> color) {
+  public void setColor(Animation<Integer> color) {
     if (this.color != null) {
       removeAnimation(this.color);
       this.color.removeUpdateListener(colorChangedListener);
@@ -287,7 +288,7 @@ class ShapeLayer extends AnimatableLayer {
     invalidateSelf();
   }
 
-  void setDashPattern(List<KeyframeAnimation<Float>> lineDashPattern, KeyframeAnimation<Float> offset) {
+  void setDashPattern(List<Animation<Float>> lineDashPattern, KeyframeAnimation<Float> offset) {
     if (this.lineDashPattern != null) {
       removeAnimation(this.lineDashPattern.get(0));
       this.lineDashPattern.get(0).removeUpdateListener(dashPatternChangedListener);

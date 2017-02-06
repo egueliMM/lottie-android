@@ -7,7 +7,7 @@ import android.support.v4.view.animation.PathInterpolatorCompat;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
-import com.airbnb.lottie.animation.KeyframeAnimation;
+import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.model.LottieComposition;
 import com.airbnb.lottie.utils.JsonUtils;
 
@@ -182,7 +182,7 @@ abstract class BaseAnimatableValue<V, O> implements AnimatableValue {
 
   protected abstract V valueFromObject(Object object, float scale) throws JSONException;
 
-  public abstract KeyframeAnimation createAnimation();
+  public abstract Animation createAnimation();
 
   @Override
   public String toString() {

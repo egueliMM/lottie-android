@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 
 import com.airbnb.lottie.animation.KeyframeAnimation;
+import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.utils.ScaleXY;
 
 import java.util.ArrayList;
@@ -22,25 +23,25 @@ import java.util.List;
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class AnimatableLayer extends Drawable {
 
-  private final KeyframeAnimation.AnimationListener<Integer> integerChangedListener = new KeyframeAnimation.AnimationListener<Integer>() {
+  private final Animation.AnimationListener<Integer> integerChangedListener = new Animation.AnimationListener<Integer>() {
     @Override
     public void onValueChanged(Integer progress) {
       invalidateSelf();
     }
   };
-  private final KeyframeAnimation.AnimationListener<Float> floatChangedListener = new KeyframeAnimation.AnimationListener<Float>() {
+  private final Animation.AnimationListener<Float> floatChangedListener = new Animation.AnimationListener<Float>() {
     @Override
     public void onValueChanged(Float progress) {
       invalidateSelf();
     }
   };
-  private final KeyframeAnimation.AnimationListener<ScaleXY> scaleChangedListener = new KeyframeAnimation.AnimationListener<ScaleXY>() {
+  private final Animation.AnimationListener<ScaleXY> scaleChangedListener = new Animation.AnimationListener<ScaleXY>() {
     @Override
     public void onValueChanged(ScaleXY progress) {
       invalidateSelf();
     }
   };
-  private final KeyframeAnimation.AnimationListener<PointF> pointChangedListener = new KeyframeAnimation.AnimationListener<PointF>() {
+  private final Animation.AnimationListener<PointF> pointChangedListener = new Animation.AnimationListener<PointF>() {
     @Override
     public void onValueChanged(PointF progress) {
       invalidateSelf();
@@ -61,7 +62,7 @@ public class AnimatableLayer extends Drawable {
 
   private final Paint solidBackgroundPaint = new Paint();
   @ColorInt private int backgroundColor;
-  private final List<KeyframeAnimation<?>> animations = new ArrayList<>();
+  private final List<Animation<?>> animations = new ArrayList<>();
   @FloatRange(from = 0f, to = 1f) private float progress;
 
   AnimatableLayer(Drawable.Callback callback) {
@@ -77,11 +78,11 @@ public class AnimatableLayer extends Drawable {
     invalidateSelf();
   }
 
-  void addAnimation(KeyframeAnimation<?> newAnimation) {
+  void addAnimation(Animation<?> newAnimation) {
     animations.add(newAnimation);
   }
 
-  void removeAnimation(KeyframeAnimation<?> animation) {
+  void removeAnimation(Animation<?> animation) {
     animations.remove(animation);
   }
 

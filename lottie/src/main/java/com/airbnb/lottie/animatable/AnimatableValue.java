@@ -1,10 +1,10 @@
 package com.airbnb.lottie.animatable;
 
-import com.airbnb.lottie.animation.KeyframeAnimation;
+import com.airbnb.lottie.animation.Animation;
 
 interface AnimatableValue {
 
-  KeyframeAnimation createAnimation();
+  Animation createAnimation();
 
   boolean hasAnimation();
 }

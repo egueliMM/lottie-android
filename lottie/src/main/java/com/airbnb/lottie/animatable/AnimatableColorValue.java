@@ -3,8 +3,8 @@ package com.airbnb.lottie.animatable;
 import android.graphics.Color;
 import android.support.annotation.RestrictTo;
 
+import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.animation.ColorKeyframeAnimation;
-import com.airbnb.lottie.animation.KeyframeAnimation;
 import com.airbnb.lottie.animation.StaticKeyframeAnimation;
 import com.airbnb.lottie.model.LottieComposition;
 
@@ -43,7 +43,7 @@ public class AnimatableColorValue extends BaseAnimatableValue<Integer, Integer> 
 
 
   @Override
-  public KeyframeAnimation<Integer> createAnimation() {
+  public Animation<Integer> createAnimation() {
     if (!hasAnimation()) {
       return new StaticKeyframeAnimation<>(initialValue);
     }

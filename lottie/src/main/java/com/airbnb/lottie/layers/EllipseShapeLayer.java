@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 
 import com.airbnb.lottie.animatable.AnimatableFloatValue;
 import com.airbnb.lottie.animation.KeyframeAnimation;
+import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.animation.StaticKeyframeAnimation;
 import com.airbnb.lottie.model.CircleShape;
 import com.airbnb.lottie.model.ShapeFill;
@@ -46,7 +47,7 @@ class EllipseShapeLayer extends AnimatableLayer {
       strokeLayer.setAlpha(stroke.getOpacity().createAnimation());
       strokeLayer.setLineWidth(stroke.getWidth().createAnimation());
       if (!stroke.getLineDashPattern().isEmpty()) {
-        List<KeyframeAnimation<Float>> dashPatternAnimations = new ArrayList<>(stroke.getLineDashPattern().size());
+        List<Animation<Float>> dashPatternAnimations = new ArrayList<>(stroke.getLineDashPattern().size());
         for (AnimatableFloatValue dashPattern : stroke.getLineDashPattern()) {
           dashPatternAnimations.add(dashPattern.createAnimation());
         }
@@ -67,14 +68,14 @@ class EllipseShapeLayer extends AnimatableLayer {
   private static final class CircleShapeLayer extends ShapeLayer {
     private static final float ELLIPSE_CONTROL_POINT_PERCENTAGE = 0.55228f;
 
-    private final KeyframeAnimation.AnimationListener<PointF> circleSizeChangedListener = new KeyframeAnimation.AnimationListener<PointF>() {
+    private final Animation.AnimationListener<PointF> circleSizeChangedListener = new Animation.AnimationListener<PointF>() {
       @Override
       public void onValueChanged(PointF progress) {
         onCircleSizeChanged();
       }
     };
 
-    private final KeyframeAnimation.AnimationListener<PointF> circlePositionChangedListener = new KeyframeAnimation.AnimationListener<PointF>() {
+    private final Animation.AnimationListener<PointF> circlePositionChangedListener = new Animation.AnimationListener<PointF>() {
       @Override
       public void onValueChanged(PointF progress) {
         invalidateSelf();

@@ -10,11 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public abstract class KeyframeAnimation<T> {
-
-  public interface AnimationListener<T> {
-    void onValueChanged(T progress);
-  }
+public abstract class KeyframeAnimation<T> implements Animation<T> {
 
   private final List<AnimationListener<T>> listeners = new ArrayList<>();
   private final long duration;
@@ -42,23 +38,28 @@ public abstract class KeyframeAnimation<T> {
     }
   }
 
+  @Override
   public void setStartDelay(long startDelay) {
     this.startDelay = startDelay;
     cachedDurationEndProgress = Float.MIN_VALUE;
   }
 
+  @Override
   public void setIsDiscrete() {
     isDiscrete = true;
   }
 
+  @Override
   public void addUpdateListener(AnimationListener<T> listener) {
     listeners.add(listener);
   }
 
+  @Override
   public void removeUpdateListener(AnimationListener<T> listener) {
     listeners.remove(listener);
   }
 
+  @Override
   public void setProgress(@FloatRange(from = 0f, to = 1f) float progress) {
     if (progress < getStartDelayProgress()) {
       progress = 0f;
@@ -115,5 +116,4 @@ public abstract class KeyframeAnimation<T> {
     return (float) duration / (float) composition.getDuration();
   }
 
-  public abstract T getValue();
 }

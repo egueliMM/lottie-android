@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 
 import com.airbnb.lottie.animatable.AnimatableFloatValue;
 import com.airbnb.lottie.animation.KeyframeAnimation;
+import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.model.RectangleShape;
 import com.airbnb.lottie.model.ShapeFill;
 import com.airbnb.lottie.model.ShapeStroke;
@@ -55,7 +56,7 @@ class RectLayer extends AnimatableLayer {
       strokeLayer.setTransformAlpha(transform.getOpacity().createAnimation());
       strokeLayer.setLineWidth(stroke.getWidth().createAnimation());
       if (!stroke.getLineDashPattern().isEmpty()) {
-        List<KeyframeAnimation<Float>> dashPatternAnimations = new ArrayList<>(stroke.getLineDashPattern().size());
+        List<Animation<Float>> dashPatternAnimations = new ArrayList<>(stroke.getLineDashPattern().size());
         for (AnimatableFloatValue dashPattern : stroke.getLineDashPattern()) {
           dashPatternAnimations.add(dashPattern.createAnimation());
         }
@@ -82,49 +83,49 @@ class RectLayer extends AnimatableLayer {
   }
 
   private static class RoundRectLayer extends AnimatableLayer {
-    private final KeyframeAnimation.AnimationListener<Integer> alphaChangedListener = new KeyframeAnimation.AnimationListener<Integer>() {
+    private final Animation.AnimationListener<Integer> alphaChangedListener = new Animation.AnimationListener<Integer>() {
       @Override
       public void onValueChanged(Integer value) {
         invalidateSelf();
       }
     };
 
-    private final KeyframeAnimation.AnimationListener<Integer> colorChangedListener = new KeyframeAnimation.AnimationListener<Integer>() {
+    private final Animation.AnimationListener<Integer> colorChangedListener = new Animation.AnimationListener<Integer>() {
       @Override
       public void onValueChanged(Integer value) {
         onColorChanged();
       }
     };
 
-    private final KeyframeAnimation.AnimationListener<Float> lineWidthChangedListener = new KeyframeAnimation.AnimationListener<Float>() {
+    private final Animation.AnimationListener<Float> lineWidthChangedListener = new Animation.AnimationListener<Float>() {
       @Override
       public void onValueChanged(Float value) {
         onLineWidthChanged();
       }
     };
 
-    private final KeyframeAnimation.AnimationListener<Float> dashPatternChangedListener = new KeyframeAnimation.AnimationListener<Float>() {
+    private final Animation.AnimationListener<Float> dashPatternChangedListener = new Animation.AnimationListener<Float>() {
       @Override
       public void onValueChanged(Float value) {
         onDashPatternChanged();
       }
     };
 
-    private final KeyframeAnimation.AnimationListener<Float> cornerRadiusChangedListener = new KeyframeAnimation.AnimationListener<Float>() {
+    private final Animation.AnimationListener<Float> cornerRadiusChangedListener = new Animation.AnimationListener<Float>() {
       @Override
       public void onValueChanged(Float value) {
         invalidateSelf();
       }
     };
 
-    private final KeyframeAnimation.AnimationListener<PointF> rectPositionChangedListener = new KeyframeAnimation.AnimationListener<PointF>() {
+    private final Animation.AnimationListener<PointF> rectPositionChangedListener = new Animation.AnimationListener<PointF>() {
       @Override
       public void onValueChanged(PointF value) {
         invalidateSelf();
       }
     };
 
-    private final KeyframeAnimation.AnimationListener<PointF> rectSizeChangedListener = new KeyframeAnimation.AnimationListener<PointF>() {
+    private final Animation.AnimationListener<PointF> rectSizeChangedListener = new Animation.AnimationListener<PointF>() {
       @Override
       public void onValueChanged(PointF value) {
         invalidateSelf();
@@ -134,15 +135,15 @@ class RectLayer extends AnimatableLayer {
     private final Paint paint = new Paint();
     private final RectF fillRect = new RectF();
 
-    private KeyframeAnimation<Integer> color;
-    private KeyframeAnimation<Float> lineWidth;
-    private KeyframeAnimation<Integer> shapeAlpha;
-    private KeyframeAnimation<Integer> transformAlpha;
-    private KeyframeAnimation<Float> rectCornerRadius;
-    private KeyframeAnimation<PointF> rectPosition;
-    private KeyframeAnimation<PointF> rectSize;
+    private Animation<Integer> color;
+    private Animation<Float> lineWidth;
+    private Animation<Integer> shapeAlpha;
+    private Animation<Integer> transformAlpha;
+    private Animation<Float> rectCornerRadius;
+    private Animation<PointF> rectPosition;
+    private Animation<PointF> rectSize;
 
-    @Nullable private List<KeyframeAnimation<Float>> lineDashPattern;
+    @Nullable private List<Animation<Float>> lineDashPattern;
     @Nullable private KeyframeAnimation<Float> lineDashPatternOffset;
 
     RoundRectLayer(Drawable.Callback callback) {
@@ -187,7 +188,7 @@ class RectLayer extends AnimatableLayer {
       return (int) ((shapeAlpha / 255f * transformAlpha / 255f * layerAlpha / 255f) * 255);
     }
 
-    public void setColor(KeyframeAnimation<Integer> color) {
+    public void setColor(Animation<Integer> color) {
       if (this.color != null) {
         removeAnimation(this.color);
         this.color.removeUpdateListener(colorChangedListener);
@@ -224,7 +225,7 @@ class RectLayer extends AnimatableLayer {
       invalidateSelf();
     }
 
-    void setDashPattern(List<KeyframeAnimation<Float>> lineDashPattern, KeyframeAnimation<Float> offset) {
+    void setDashPattern(List<Animation<Float>> lineDashPattern, KeyframeAnimation<Float> offset) {
       if (this.lineDashPattern != null) {
         removeAnimation(this.lineDashPattern.get(0));
         this.lineDashPattern.get(0).removeUpdateListener(dashPatternChangedListener);

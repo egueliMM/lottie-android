@@ -15,7 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 import android.view.animation.Interpolator;
 
-import com.airbnb.lottie.animation.KeyframeAnimation;
+import com.airbnb.lottie.animation.Animation;
 import com.airbnb.lottie.animation.NumberKeyframeAnimation;
 import com.airbnb.lottie.model.CircleShape;
 import com.airbnb.lottie.model.Layer;
@@ -141,7 +141,7 @@ public class LayerView extends AnimatableLayer {
           layerModel.getInOutKeyFrames(),
           Collections.<Interpolator>emptyList());
       inOutAnimation.setIsDiscrete();
-      inOutAnimation.addUpdateListener(new KeyframeAnimation.AnimationListener<Float>() {
+      inOutAnimation.addUpdateListener(new Animation.AnimationListener<Float>() {
         @Override
         public void onValueChanged(Float progress) {
           setVisible(progress == 1f, false);
@@ -170,9 +170,9 @@ public class LayerView extends AnimatableLayer {
   private void setMask(MaskLayer mask) {
     this.mask = mask;
     // TODO: make this a field like other animation listeners and remove existing ones.
-    for (KeyframeAnimation<Path> animation : mask.getMasks()) {
+    for (Animation<Path> animation : mask.getMasks()) {
       addAnimation(animation);
-      animation.addUpdateListener(new KeyframeAnimation.AnimationListener<Path>() {
+      animation.addUpdateListener(new Animation.AnimationListener<Path>() {
         @Override
         public void onValueChanged(Path progress) {
           invalidateSelf();
