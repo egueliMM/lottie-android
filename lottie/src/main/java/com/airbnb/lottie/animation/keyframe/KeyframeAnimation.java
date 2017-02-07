@@ -4,16 +4,14 @@ import android.support.annotation.FloatRange;
 import android.support.annotation.RestrictTo;
 import android.view.animation.Interpolator;
 
-import com.airbnb.lottie.animation.Animation;
+import com.airbnb.lottie.animation.AbstractAnimation;
 import com.airbnb.lottie.model.LottieComposition;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public abstract class KeyframeAnimation<T> implements Animation<T> {
+public abstract class KeyframeAnimation<T> extends AbstractAnimation<T> {
 
-  private final List<AnimationListener<T>> listeners = new ArrayList<>();
   private final long duration;
   private final LottieComposition composition;
   final List<Float> keyTimes;
@@ -48,16 +46,6 @@ public abstract class KeyframeAnimation<T> implements Animation<T> {
   @Override
   public void setIsDiscrete() {
     isDiscrete = true;
-  }
-
-  @Override
-  public void addUpdateListener(AnimationListener<T> listener) {
-    listeners.add(listener);
-  }
-
-  @Override
-  public void removeUpdateListener(AnimationListener<T> listener) {
-    listeners.remove(listener);
   }
 
   @Override

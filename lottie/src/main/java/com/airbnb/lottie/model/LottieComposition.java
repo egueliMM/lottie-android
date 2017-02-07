@@ -42,7 +42,7 @@ public class LottieComposition {
    * Loads a composition from a file stored in /assets.
    */
   public static Cancellable fromAssetFileName(Context context, String fileName, OnCompositionLoadedListener loadedListener) {
-    return LottieCompositionLoader.fromAssetFileName(context, fileName, loadedListener);
+    return new LottieCompositionLoader().fromAssetFileName(context, fileName, loadedListener);
   }
 
   /**
@@ -51,23 +51,23 @@ public class LottieComposition {
    * ex: fromInputStream(context, new FileInputStream(filePath), (composition) -> {});
    */
   public static Cancellable fromInputStream(Context context, InputStream stream, OnCompositionLoadedListener loadedListener) {
-    return LottieCompositionLoader.fromInputStream(context, stream, loadedListener);
+    return new LottieCompositionLoader().fromInputStream(context, stream, loadedListener);
   }
 
   public static LottieComposition fromFileSync(Context context, String fileName) {
-    return LottieCompositionLoader.fromFileSync(context, fileName);
+    return new LottieCompositionLoader().fromFileSync(context, fileName);
   }
 
   /**
    * Loads a composition from a raw json object. This is useful for animations loaded from the network.
    */
   public static Cancellable fromJson(Resources res, JSONObject json, OnCompositionLoadedListener loadedListener) {
-    return LottieCompositionLoader.fromJson(res, json, loadedListener);
+    return new LottieCompositionLoader().fromJson(res, json, loadedListener);
   }
 
   @SuppressWarnings("WeakerAccess")
   public static LottieComposition fromInputStream(Resources res, InputStream file) {
-    return LottieCompositionLoader.fromInputStream(res, file);
+    return new LottieCompositionLoader().fromInputStream(res, file);
   }
 
   private final LongSparseArray<Layer> layerMap = new LongSparseArray<>();

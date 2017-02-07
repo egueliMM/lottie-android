@@ -25,11 +25,11 @@ import java.util.List;
 /**
  * Created by enrico on 07/02/2017.
  */
-public class JsonCompositionParser {
+public class JsonCompositionParser implements CompositionParser {
   private static final String TAG = "JsonCompositionParser";
   
   @SuppressWarnings("WeakerAccess")
-  public static LottieComposition parseComposition(Resources res, JSONObject json) {
+  public LottieComposition parseComposition(Resources res, JSONObject json) {
     LottieComposition composition = new LottieComposition(res);
 
     int width = -1;
@@ -106,7 +106,7 @@ public class JsonCompositionParser {
     }
   }
 
-  public static Layer parseLayer(JSONObject json, LottieComposition composition) {
+  public Layer parseLayer(JSONObject json, LottieComposition composition) {
     Layer layer = new Layer(composition);
     try {
       if (L.DBG) Log.d(TAG, "Parsing new layer.");

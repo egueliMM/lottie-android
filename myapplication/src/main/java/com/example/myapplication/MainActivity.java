@@ -5,8 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.animatable.AnimatableValue;
+import com.airbnb.lottie.loader.JsonCompositionParser;
+import com.airbnb.lottie.loader.LottieCompositionLoader;
 import com.airbnb.lottie.model.Layer;
 import com.airbnb.lottie.model.LottieComposition;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,7 +31,19 @@ public class MainActivity extends AppCompatActivity {
 
     Single.<LottieComposition>create(s -> {
         try {
-          LottieComposition.fromInputStream(this, getAssets().open("star.json"), s::onSuccess);
+          LottieCompositionLoader loader = new LottieCompositionLoader();
+          loader.setParser(new JsonCompositionParser() {
+            @Override
+            public Layer parseLayer(JSONObject json, LottieComposition composition) {
+              Layer layer = super.parseLayer(json, composition);
+              if (layer.getName().equals("Shape Layer 1")) {
+                AnimatableValue<Float> rotation = layer.getRotation();
+                layer.setRotation(new OffsetRotationAnimValue(rotation, 15));
+              }
+              return layer;
+            }
+          });
+          loader.fromInputStream(this, getAssets().open("star.json"), s::onSuccess);
         } catch (IOException e) {
           s.onError(e);
         }

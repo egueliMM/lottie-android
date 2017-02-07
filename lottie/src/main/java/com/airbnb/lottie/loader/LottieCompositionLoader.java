@@ -16,7 +16,17 @@ import java.io.InputStream;
  * Created by enrico on 07/02/2017.
  */
 public class LottieCompositionLoader {
-  public static LottieComposition.Cancellable fromAssetFileName(Context context, String fileName, LottieComposition.OnCompositionLoadedListener loadedListener) {
+  private CompositionParser parser;
+
+  public LottieCompositionLoader() {
+    parser = new JsonCompositionParser();
+  }
+
+  public void setParser(CompositionParser parser) {
+    this.parser = parser;
+  }
+
+  public LottieComposition.Cancellable fromAssetFileName(Context context, String fileName, LottieComposition.OnCompositionLoadedListener loadedListener) {
     InputStream stream;
     try {
       stream = context.getAssets().open(fileName);
@@ -26,13 +36,13 @@ public class LottieCompositionLoader {
     return fromInputStream(context, stream, loadedListener);
   }
 
-  public static LottieComposition.Cancellable fromInputStream(Context context, InputStream stream, LottieComposition.OnCompositionLoadedListener loadedListener) {
+  public LottieComposition.Cancellable fromInputStream(Context context, InputStream stream, LottieComposition.OnCompositionLoadedListener loadedListener) {
     FileCompositionLoader loader = new FileCompositionLoader(context.getResources(), loadedListener);
     loader.execute(stream);
     return loader;
   }
 
-  public static LottieComposition fromFileSync(Context context, String fileName) {
+  public LottieComposition fromFileSync(Context context, String fileName) {
     InputStream file;
     try {
       file = context.getAssets().open(fileName);
@@ -42,14 +52,14 @@ public class LottieCompositionLoader {
     return fromInputStream(context.getResources(), file);
   }
 
-  public static LottieComposition.Cancellable fromJson(Resources res, JSONObject json, LottieComposition.OnCompositionLoadedListener loadedListener) {
+  public LottieComposition.Cancellable fromJson(Resources res, JSONObject json, LottieComposition.OnCompositionLoadedListener loadedListener) {
     JsonCompositionLoader loader = new JsonCompositionLoader(res, loadedListener);
     loader.execute(json);
     return loader;
   }
 
   @SuppressWarnings("WeakerAccess")
-  public static LottieComposition fromInputStream(Resources res, InputStream file) {
+  public LottieComposition fromInputStream(Resources res, InputStream file) {
     try {
       int size = file.available();
       byte[] buffer = new byte[size];
@@ -59,7 +69,7 @@ public class LottieCompositionLoader {
       String json = new String(buffer, "UTF-8");
 
       JSONObject jsonObject = new JSONObject(json);
-      return JsonCompositionParser.parseComposition(res, jsonObject);
+      return parser.parseComposition(res, jsonObject);
     } catch (IOException e) {
       throw new IllegalStateException("Unable to find file.", e);
     } catch (JSONException e) {
@@ -77,7 +87,7 @@ public class LottieCompositionLoader {
     }
   }
 
-  static final class FileCompositionLoader extends CompositionLoader<InputStream> {
+  final class FileCompositionLoader extends CompositionLoader<InputStream> {
 
     private final Resources res;
     private final LottieComposition.OnCompositionLoadedListener loadedListener;
@@ -89,7 +99,7 @@ public class LottieCompositionLoader {
 
     @Override
     protected LottieComposition doInBackground(InputStream... params) {
-      return LottieComposition.fromInputStream(res, params[0]);
+      return fromInputStream(res, params[0]);
     }
 
     @Override
@@ -98,7 +108,7 @@ public class LottieCompositionLoader {
     }
   }
 
-  static final class JsonCompositionLoader extends CompositionLoader<JSONObject> {
+  final class JsonCompositionLoader extends CompositionLoader<JSONObject> {
 
     private final Resources res;
     private final LottieComposition.OnCompositionLoadedListener loadedListener;
@@ -110,7 +120,7 @@ public class LottieCompositionLoader {
 
     @Override
     protected LottieComposition doInBackground(JSONObject... params) {
-      return JsonCompositionParser.parseComposition(res, params[0]);
+      return parser.parseComposition(res, params[0]);
     }
 
     @Override
