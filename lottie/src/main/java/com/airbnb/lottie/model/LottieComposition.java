@@ -94,7 +94,7 @@ public class LottieComposition {
       String json = new String(buffer, "UTF-8");
 
       JSONObject jsonObject = new JSONObject(json);
-      return JsonCompositionParser.fromJsonSync(res, jsonObject);
+      return JsonCompositionParser.parseComposition(res, jsonObject);
     } catch (IOException e) {
       throw new IllegalStateException("Unable to find file.", e);
     } catch (JSONException e) {

@@ -1,23 +1,12 @@
 package com.airbnb.lottie.model;
 
-import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
-import android.util.Log;
 
-import com.airbnb.lottie.L;
 import com.airbnb.lottie.animatable.AnimatableValue;
-import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableFloatValue;
-import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableIntegerValue;
-import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatablePathValue;
-import com.airbnb.lottie.animatable.keyframe.KeyframeAnimatableScaleValue;
 import com.airbnb.lottie.utils.ScaleXY;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +14,6 @@ import java.util.Locale;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class Layer implements Transform {
-  private static final String TAG = Layer.class.getSimpleName();
   private final LottieComposition composition;
 
   public enum LottieLayerType {
@@ -41,178 +29,6 @@ public class Layer implements Transform {
     Add,
     Invert,
     Unknown
-  }
-
-  public static Layer fromJson(JSONObject json, LottieComposition composition) {
-    Layer layer = new Layer(composition);
-    try {
-      if (L.DBG) Log.d(TAG, "Parsing new layer.");
-      layer.layerName = json.getString("nm");
-      if (L.DBG) Log.d(TAG, "\tName=" + layer.layerName);
-      layer.layerId = json.getLong("ind");
-      if (L.DBG) Log.d(TAG, "\tId=" + layer.layerId);
-      layer.frameRate = composition.getFrameRate();
-
-      int layerType = json.getInt("ty");
-      if (layerType <= LottieLayerType.Shape.ordinal()) {
-        layer.layerType = LottieLayerType.values()[layerType];
-      } else {
-        layer.layerType = LottieLayerType.Unknown;
-      }
-
-      try {
-        layer.parentId = json.getLong("parent");
-      } catch (JSONException e) {
-        // Do nothing.
-      }
-      layer.inFrame = json.getLong("ip");
-      layer.outFrame = json.getLong("op");
-      if (L.DBG) Log.d(TAG, "\tFrames=" + layer.inFrame + "->" + layer.outFrame);
-
-      if (layer.layerType == LottieLayerType.Solid) {
-        layer.solidWidth = (int) (json.getInt("sw") * composition.getScale());
-        layer.solidHeight = (int) (json.getInt("sh") * composition.getScale());
-        layer.solidColor = Color.parseColor(json.getString("sc"));
-        if (L.DBG) {
-          Log.d(TAG, "\tSolid=" + Integer.toHexString(layer.solidColor) + " " +
-              layer.solidWidth + "x" + layer.solidHeight + " " + composition.getBounds());
-        }
-      }
-
-      JSONObject ks = json.getJSONObject("ks");
-
-      JSONObject opacity = null;
-      try {
-        opacity = ks.getJSONObject("o");
-      } catch (JSONException e) {
-        // Do nothing.
-      }
-      if (opacity != null) {
-        layer.opacity = new KeyframeAnimatableIntegerValue(opacity, layer.frameRate, composition, false, true);
-        if (L.DBG) Log.d(TAG, "\tOpacity=" + layer.opacity);
-      }
-
-      JSONObject rotation;
-      try {
-        rotation = ks.getJSONObject("r");
-      } catch (JSONException e) {
-        rotation = ks.getJSONObject("rz");
-      }
-
-      if (rotation != null) {
-        layer.rotation = new KeyframeAnimatableFloatValue(rotation, layer.frameRate, composition, false);
-        if (L.DBG) Log.d(TAG, "\tRotation=" + layer.rotation);
-      }
-
-      JSONObject position = null;
-      try {
-        position = ks.getJSONObject("p");
-      } catch (JSONException e) {
-        // Do nothing.
-      }
-      if (position != null) {
-        layer.position = new KeyframeAnimatablePathValue(position, layer.frameRate, composition);
-        if (L.DBG) Log.d(TAG, "\tPosition=" + layer.getPosition().toString());
-      }
-
-      JSONObject anchor = null;
-      try {
-        anchor = ks.getJSONObject("a");
-      } catch (JSONException e) {
-        // DO nothing.
-      }
-      if (anchor != null) {
-        layer.anchor = new KeyframeAnimatablePathValue(anchor, layer.frameRate, composition);
-        if (L.DBG) Log.d(TAG, "\tAnchor=" + layer.anchor.toString());
-      }
-
-      JSONObject scale = null;
-      try {
-        scale = ks.getJSONObject("s");
-      } catch (JSONException e) {
-        // Do nothing.
-      }
-      if (scale != null) {
-        layer.scale = new KeyframeAnimatableScaleValue(scale, layer.frameRate, composition, false);
-        if (L.DBG) Log.d(TAG, "\tScale=" + layer.scale.toString());
-      }
-
-      try {
-        layer.matteType = MatteType.values()[json.getInt("tt")];
-        if (L.DBG) Log.d(TAG, "\tMatte=" + layer.matteType);
-      } catch (JSONException e) {
-        // Do nothing.
-      }
-
-      JSONArray jsonMasks = null;
-      try {
-        jsonMasks = json.getJSONArray("masksProperties");
-      } catch (JSONException e) {
-        // Do nothing.
-      }
-      if (jsonMasks != null) {
-        for (int i = 0; i < jsonMasks.length(); i++) {
-          Mask mask = new Mask(jsonMasks.getJSONObject(i), layer.frameRate, composition);
-          layer.masks.add(mask);
-          if (L.DBG) Log.d(TAG, "\tMask=" + mask.getMaskMode());
-        }
-      }
-
-      JSONArray shapes = null;
-      try {
-        shapes = json.getJSONArray("shapes");
-      } catch (JSONException e) {
-        // Do nothing.
-      }
-      if (shapes != null) {
-        for (int i = 0; i < shapes.length(); i++) {
-          Object shape = ShapeGroup.shapeItemWithJson(shapes.getJSONObject(i), layer.frameRate, composition);
-          if (shape != null) {
-            layer.shapes.add(shape);
-            if (L.DBG) Log.d(TAG, "\tShapes+=" + shape.getClass().getSimpleName());
-          }
-        }
-      }
-    } catch (JSONException e) {
-      throw new IllegalStateException("Unable to parse layer json.", e);
-    }
-
-    layer.hasInAnimation = layer.inFrame > composition.getStartFrame();
-    layer.hasOutAnimation = layer.outFrame < composition.getEndFrame();
-    layer.hasInOutAnimation = layer.hasInAnimation || layer.hasOutAnimation;
-
-    if (layer.hasInOutAnimation) {
-      List<Float> keys = new ArrayList<>();
-      List<Float> keyTimes = new ArrayList<>();
-      long length = composition.getEndFrame() - composition.getStartFrame();
-
-      if (layer.hasInAnimation) {
-        keys.add(0f);
-        keyTimes.add(0f);
-        keys.add(1f);
-        float inTime = layer.inFrame / (float) length;
-        keyTimes.add(inTime);
-      } else {
-        keys.add(1f);
-        keyTimes.add(0f);
-      }
-
-      if (layer.hasOutAnimation) {
-        keys.add(0f);
-        keyTimes.add(layer.outFrame / (float) length);
-        keys.add(0f);
-        keyTimes.add(1f);
-      } else {
-        keys.add(1f);
-        keyTimes.add(1f);
-      }
-
-      layer.inOutKeyTimes = keyTimes;
-      layer.inOutKeyFrames = keys;
-
-    }
-
-    return layer;
   }
 
   private final List<Object> shapes = new ArrayList<>();
@@ -246,7 +62,7 @@ public class Layer implements Transform {
 
   private MatteType matteType;
 
-  private Layer(LottieComposition composition) {
+  public Layer(LottieComposition composition) {
     this.composition = composition;
   }
 
@@ -265,11 +81,11 @@ public class Layer implements Transform {
   }
 
   public boolean hasInAnimation() {
-    return hasInAnimation;
+    return isHasInAnimation();
   }
 
   public boolean hasInOutAnimation() {
-    return hasInOutAnimation;
+    return isHasInOutAnimation();
   }
 
   @Nullable
@@ -338,6 +154,121 @@ public class Layer implements Transform {
     return solidWidth;
   }
 
+  public void setName(String layerName) {
+    this.layerName = layerName;
+  }
+
+  public void setId(long layerId) {
+    this.layerId = layerId;
+  }
+
+  public LottieLayerType getLayerType() {
+    return layerType;
+  }
+
+  public void setLayerType(LottieLayerType layerType) {
+    this.layerType = layerType;
+  }
+
+  public void setParentId(long parentId) {
+    this.parentId = parentId;
+  }
+
+  public long getInFrame() {
+    return inFrame;
+  }
+
+  public void setInFrame(long inFrame) {
+    this.inFrame = inFrame;
+  }
+
+  public long getOutFrame() {
+    return outFrame;
+  }
+
+  public void setOutFrame(long outFrame) {
+    this.outFrame = outFrame;
+  }
+
+  public int getFrameRate() {
+    return frameRate;
+  }
+
+  public void setFrameRate(int frameRate) {
+    this.frameRate = frameRate;
+  }
+
+  public void setSolidWidth(int solidWidth) {
+    this.solidWidth = solidWidth;
+  }
+
+  public void setSolidHeight(int solidHeight) {
+    this.solidHeight = solidHeight;
+  }
+
+  public void setSolidColor(int solidColor) {
+    this.solidColor = solidColor;
+  }
+
+  public void setOpacity(AnimatableValue<Integer> opacity) {
+    this.opacity = opacity;
+  }
+
+  public void setRotation(AnimatableValue<Float> rotation) {
+    this.rotation = rotation;
+  }
+
+  public void setPosition(AnimatableValue<PointF> position) {
+    this.position = position;
+  }
+
+  public void setAnchor(AnimatableValue<PointF> anchor) {
+    this.anchor = anchor;
+  }
+
+  public void setScale(AnimatableValue<ScaleXY> scale) {
+    this.scale = scale;
+  }
+
+  public void setMatteType(MatteType matteType) {
+    this.matteType = matteType;
+  }
+
+  public boolean isHasOutAnimation() {
+    return hasOutAnimation;
+  }
+
+  public void setHasOutAnimation(boolean hasOutAnimation) {
+    this.hasOutAnimation = hasOutAnimation;
+  }
+
+  public boolean isHasInAnimation() {
+    return hasInAnimation;
+  }
+
+  public void setHasInAnimation(boolean hasInAnimation) {
+    this.hasInAnimation = hasInAnimation;
+  }
+
+  public boolean isHasInOutAnimation() {
+    return hasInOutAnimation;
+  }
+
+  public void setHasInOutAnimation(boolean hasInOutAnimation) {
+    this.hasInOutAnimation = hasInOutAnimation;
+  }
+
+  public void setInOutKeyFrames(@Nullable List<Float> inOutKeyFrames) {
+    this.inOutKeyFrames = inOutKeyFrames;
+  }
+
+  public void setInOutKeyTimes(@Nullable List<Float> inOutKeyTimes) {
+    this.inOutKeyTimes = inOutKeyTimes;
+  }
+
+
+
+
   @Override
   public String toString() {
     return toString("");
@@ -374,9 +305,9 @@ public class Layer implements Transform {
     if (getSolidWidth() != 0 && getSolidHeight() != 0) {
       sb.append(prefix).append("\tBackground: ").append(String.format(Locale.US, "%dx%d %X\n", getSolidWidth(), getSolidHeight(), getSolidColor()));
     }
-    if (!shapes.isEmpty()) {
+    if (!getShapes().isEmpty()) {
       sb.append(prefix).append("\tShapes:\n");
-      for (Object shape : shapes) {
+      for (Object shape : getShapes()) {
         sb.append(prefix).append("\t\t").append(shape).append("\n");
       }
     }

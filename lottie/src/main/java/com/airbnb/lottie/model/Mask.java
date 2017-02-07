@@ -21,7 +21,7 @@ public class Mask {
   private final MaskMode maskMode;
   private final KeyframeAnimatableShapeValue maskPath;
 
-  Mask(JSONObject json, int frameRate, LottieComposition composition) {
+  public Mask(JSONObject json, int frameRate, LottieComposition composition) {
     try {
       boolean closed = false;
       if (json.has("cl")) {
@@ -52,7 +52,7 @@ public class Mask {
   }
 
 
-  MaskMode getMaskMode() {
+  public MaskMode getMaskMode() {
     return maskMode;
   }
 

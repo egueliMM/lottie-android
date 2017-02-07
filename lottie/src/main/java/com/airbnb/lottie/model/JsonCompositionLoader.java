@@ -18,7 +18,7 @@ final class JsonCompositionLoader extends CompositionLoader<JSONObject> {
 
   @Override
   protected LottieComposition doInBackground(JSONObject... params) {
-    return JsonCompositionParser.fromJsonSync(res, params[0]);
+    return JsonCompositionParser.parseComposition(res, params[0]);
   }
 
   @Override

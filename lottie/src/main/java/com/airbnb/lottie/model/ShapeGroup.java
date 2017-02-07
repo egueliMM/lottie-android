@@ -15,7 +15,7 @@ import java.util.List;
 public class ShapeGroup {
 
   @Nullable
-  static Object shapeItemWithJson(JSONObject json, int framerate, LottieComposition composition) {
+  public static Object shapeItemWithJson(JSONObject json, int framerate, LottieComposition composition) {
     String type = null;
     try {
       type = json.getString("ty");
