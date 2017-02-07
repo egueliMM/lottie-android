@@ -2,6 +2,7 @@ package com.airbnb.lottie.loader;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 
 import com.airbnb.lottie.model.LottieComposition;
 
@@ -66,4 +67,55 @@ public class LottieCompositionLoader {
     }
   }
 
+  abstract static class CompositionLoader<Params>
+      extends AsyncTask<Params, Void, LottieComposition>
+      implements LottieComposition.Cancellable {
+
+    @Override
+    public void cancel() {
+      cancel(true);
+    }
+  }
+
+  static final class FileCompositionLoader extends CompositionLoader<InputStream> {
+
+    private final Resources res;
+    private final LottieComposition.OnCompositionLoadedListener loadedListener;
+
+    FileCompositionLoader(Resources res, LottieComposition.OnCompositionLoadedListener loadedListener) {
+      this.res = res;
+      this.loadedListener = loadedListener;
+    }
+
+    @Override
+    protected LottieComposition doInBackground(InputStream... params) {
+      return LottieComposition.fromInputStream(res, params[0]);
+    }
+
+    @Override
+    protected void onPostExecute(LottieComposition composition) {
+      loadedListener.onCompositionLoaded(composition);
+    }
+  }
+
+  static final class JsonCompositionLoader extends CompositionLoader<JSONObject> {
+
+    private final Resources res;
+    private final LottieComposition.OnCompositionLoadedListener loadedListener;
+
+    JsonCompositionLoader(Resources res, LottieComposition.OnCompositionLoadedListener loadedListener) {
+      this.res = res;
+      this.loadedListener = loadedListener;
+    }
+
+    @Override
+    protected LottieComposition doInBackground(JSONObject... params) {
+      return JsonCompositionParser.parseComposition(res, params[0]);
+    }
+
+    @Override
+    protected void onPostExecute(LottieComposition composition) {
+      loadedListener.onCompositionLoaded(composition);
+    }
+  }
 }
