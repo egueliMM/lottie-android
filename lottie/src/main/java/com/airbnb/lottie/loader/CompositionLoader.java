@@ -1,6 +1,8 @@
-package com.airbnb.lottie.model;
+package com.airbnb.lottie.loader;
 
 import android.os.AsyncTask;
+
+import com.airbnb.lottie.model.LottieComposition;
 
 abstract class CompositionLoader<Params>
     extends AsyncTask<Params, Void, LottieComposition>

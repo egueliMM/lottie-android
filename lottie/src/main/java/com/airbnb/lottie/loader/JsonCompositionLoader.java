@@ -1,8 +1,8 @@
-package com.airbnb.lottie.model;
+package com.airbnb.lottie.loader;
 
 import android.content.res.Resources;
 
-import com.airbnb.lottie.loader.JsonCompositionParser;
+import com.airbnb.lottie.model.LottieComposition;
 
 import org.json.JSONObject;
 

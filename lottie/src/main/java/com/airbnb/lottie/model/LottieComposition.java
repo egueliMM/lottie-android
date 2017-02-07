@@ -7,12 +7,10 @@ import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
 import android.util.LongSparseArray;
 
-import com.airbnb.lottie.loader.JsonCompositionParser;
+import com.airbnb.lottie.loader.LottieCompositionLoader;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,13 +42,7 @@ public class LottieComposition {
    * Loads a composition from a file stored in /assets.
    */
   public static Cancellable fromAssetFileName(Context context, String fileName, OnCompositionLoadedListener loadedListener) {
-    InputStream stream;
-    try {
-      stream = context.getAssets().open(fileName);
-    } catch (IOException e) {
-      throw new IllegalStateException("Unable to find file " + fileName, e);
-    }
-    return fromInputStream(context, stream, loadedListener);
+    return LottieCompositionLoader.fromAssetFileName(context, fileName, loadedListener);
   }
 
   /**
@@ -59,47 +51,23 @@ public class LottieComposition {
    * ex: fromInputStream(context, new FileInputStream(filePath), (composition) -> {});
    */
   public static Cancellable fromInputStream(Context context, InputStream stream, OnCompositionLoadedListener loadedListener) {
-    FileCompositionLoader loader = new FileCompositionLoader(context.getResources(), loadedListener);
-    loader.execute(stream);
-    return loader;
+    return LottieCompositionLoader.fromInputStream(context, stream, loadedListener);
   }
 
   public static LottieComposition fromFileSync(Context context, String fileName) {
-    InputStream file;
-    try {
-      file = context.getAssets().open(fileName);
-    } catch (IOException e) {
-      throw new IllegalStateException("Unable to find file " + fileName, e);
-    }
-    return fromInputStream(context.getResources(), file);
+    return LottieCompositionLoader.fromFileSync(context, fileName);
   }
 
   /**
    * Loads a composition from a raw json object. This is useful for animations loaded from the network.
    */
   public static Cancellable fromJson(Resources res, JSONObject json, OnCompositionLoadedListener loadedListener) {
-    JsonCompositionLoader loader = new JsonCompositionLoader(res, loadedListener);
-    loader.execute(json);
-    return loader;
+    return LottieCompositionLoader.fromJson(res, json, loadedListener);
   }
 
   @SuppressWarnings("WeakerAccess")
   public static LottieComposition fromInputStream(Resources res, InputStream file) {
-    try {
-      int size = file.available();
-      byte[] buffer = new byte[size];
-      //noinspection ResultOfMethodCallIgnored
-      file.read(buffer);
-      file.close();
-      String json = new String(buffer, "UTF-8");
-
-      JSONObject jsonObject = new JSONObject(json);
-      return JsonCompositionParser.parseComposition(res, jsonObject);
-    } catch (IOException e) {
-      throw new IllegalStateException("Unable to find file.", e);
-    } catch (JSONException e) {
-      throw new IllegalStateException("Unable to load JSON.", e);
-    }
+    return LottieCompositionLoader.fromInputStream(res, file);
   }
 
   private final LongSparseArray<Layer> layerMap = new LongSparseArray<>();
