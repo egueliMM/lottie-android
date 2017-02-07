@@ -3,7 +3,6 @@ package com.airbnb.lottie.model;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
-import android.os.AsyncTask;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
 import android.util.LongSparseArray;
@@ -251,55 +250,4 @@ public class LottieComposition {
     return sb.toString();
   }
 
-  private static final class FileCompositionLoader extends CompositionLoader<InputStream> {
-
-    private final Resources res;
-    private final OnCompositionLoadedListener loadedListener;
-
-    FileCompositionLoader(Resources res, OnCompositionLoadedListener loadedListener) {
-      this.res = res;
-      this.loadedListener = loadedListener;
-    }
-
-    @Override
-    protected LottieComposition doInBackground(InputStream... params) {
-      return fromInputStream(res, params[0]);
-    }
-
-    @Override
-    protected void onPostExecute(LottieComposition composition) {
-      loadedListener.onCompositionLoaded(composition);
-    }
-  }
-
-  private static final class JsonCompositionLoader extends CompositionLoader<JSONObject> {
-
-    private final Resources res;
-    private final OnCompositionLoadedListener loadedListener;
-
-    JsonCompositionLoader(Resources res, OnCompositionLoadedListener loadedListener) {
-      this.res = res;
-      this.loadedListener = loadedListener;
-    }
-
-    @Override
-    protected LottieComposition doInBackground(JSONObject... params) {
-      return fromJsonSync(res, params[0]);
-    }
-
-    @Override
-    protected void onPostExecute(LottieComposition composition) {
-      loadedListener.onCompositionLoaded(composition);
-    }
-  }
-
-  private abstract static class CompositionLoader<Params>
-      extends AsyncTask<Params, Void, LottieComposition>
-      implements Cancellable {
-
-    @Override
-    public void cancel() {
-      cancel(true);
-    }
-  }
 }
