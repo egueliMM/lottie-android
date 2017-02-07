@@ -114,28 +114,28 @@ public class LottieComposition {
       // ignore.
     }
     if (width != -1 && height != -1) {
-      int scaledWidth = (int) (width * composition.scale);
-      int scaledHeight = (int) (height * composition.scale);
+      int scaledWidth = (int) (width * composition.getScale());
+      int scaledHeight = (int) (height * composition.getScale());
       if (Math.max(scaledWidth, scaledHeight) > MAX_PIXELS) {
         float factor = (float) MAX_PIXELS / (float) Math.max(scaledWidth, scaledHeight);
         scaledWidth *= factor;
         scaledHeight *= factor;
-        composition.scale *= factor;
+        composition.setScale(composition.getScale() * factor);
       }
-      composition.bounds = new Rect(0, 0, scaledWidth, scaledHeight);
+      composition.setBounds(new Rect(0, 0, scaledWidth, scaledHeight));
     }
 
     try {
-      composition.startFrame = json.getLong("ip");
-      composition.endFrame = json.getLong("op");
-      composition.frameRate = json.getInt("fr");
+      composition.setStartFrame(json.getLong("ip"));
+      composition.setEndFrame(json.getLong("op"));
+      composition.setFrameRate(json.getInt("fr"));
     } catch (JSONException e) {
       //
     }
 
-    if (composition.endFrame != 0 && composition.frameRate != 0) {
-      long frameDuration = composition.endFrame - composition.startFrame;
-      composition.duration = (long) (frameDuration / (float) composition.frameRate * 1000);
+    if (composition.getEndFrame() != 0 && composition.getFrameRate() != 0) {
+      long frameDuration = composition.getEndFrame() - composition.getStartFrame();
+      composition.setDuration((long) (frameDuration / (float) composition.getFrameRate() * 1000));
     }
 
     try {
@@ -191,13 +191,13 @@ public class LottieComposition {
   private float scale;
 
   private LottieComposition(Resources res) {
-    scale = res.getDisplayMetrics().density;
+    setScale(res.getDisplayMetrics().density);
   }
 
   @VisibleForTesting
   public LottieComposition(long duration) {
-    scale = 1f;
-    this.duration = duration;
+    setScale(1f);
+    this.setDuration(duration);
   }
 
 
@@ -240,6 +240,32 @@ public class LottieComposition {
   public float getScale() {
     return scale;
   }
+
+  public void setBounds(Rect bounds) {
+    this.bounds = bounds;
+  }
+
+  public void setStartFrame(long startFrame) {
+    this.startFrame = startFrame;
+  }
+
+  public void setEndFrame(long endFrame) {
+    this.endFrame = endFrame;
+  }
+
+  public void setFrameRate(int frameRate) {
+    this.frameRate = frameRate;
+  }
+
+  public void setScale(float scale) {
+    this.scale = scale;
+  }
+
+  public void setDuration(long duration) {
+    this.duration = duration;
+  }
+
+
 
   @Override
   public String toString() {
