@@ -2,6 +2,8 @@ package com.airbnb.lottie.model;
 
 import android.content.res.Resources;
 
+import com.airbnb.lottie.loader.JsonCompositionParser;
+
 import org.json.JSONObject;
 
 final class JsonCompositionLoader extends CompositionLoader<JSONObject> {
@@ -16,7 +18,7 @@ final class JsonCompositionLoader extends CompositionLoader<JSONObject> {
 
   @Override
   protected LottieComposition doInBackground(JSONObject... params) {
-    return LottieComposition.fromJsonSync(res, params[0]);
+    return JsonCompositionParser.fromJsonSync(res, params[0]);
   }
 
   @Override

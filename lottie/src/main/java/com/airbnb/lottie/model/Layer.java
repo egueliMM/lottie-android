@@ -43,7 +43,7 @@ public class Layer implements Transform {
     Unknown
   }
 
-  static Layer fromJson(JSONObject json, LottieComposition composition) {
+  public static Layer fromJson(JSONObject json, LottieComposition composition) {
     Layer layer = new Layer(composition);
     try {
       if (L.DBG) Log.d(TAG, "Parsing new layer.");

@@ -7,7 +7,8 @@ import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
 import android.util.LongSparseArray;
 
-import org.json.JSONArray;
+import com.airbnb.lottie.loader.JsonCompositionParser;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,7 +38,7 @@ public class LottieComposition {
    * <p>
    * Hopefully this can be hardware accelerated someday.
    */
-  private static final int MAX_PIXELS = 1000;
+  public static final int MAX_PIXELS = 1000;
 
   /**
    * Loads a composition from a file stored in /assets.
@@ -93,89 +94,11 @@ public class LottieComposition {
       String json = new String(buffer, "UTF-8");
 
       JSONObject jsonObject = new JSONObject(json);
-      return LottieComposition.fromJsonSync(res, jsonObject);
+      return JsonCompositionParser.fromJsonSync(res, jsonObject);
     } catch (IOException e) {
       throw new IllegalStateException("Unable to find file.", e);
     } catch (JSONException e) {
       throw new IllegalStateException("Unable to load JSON.", e);
-    }
-  }
-
-  @SuppressWarnings("WeakerAccess")
-  public static LottieComposition fromJsonSync(Resources res, JSONObject json) {
-    LottieComposition composition = new LottieComposition(res);
-
-    int width = -1;
-    int height = -1;
-    try {
-      width = json.getInt("w");
-      height = json.getInt("h");
-    } catch (JSONException e) {
-      // ignore.
-    }
-    if (width != -1 && height != -1) {
-      int scaledWidth = (int) (width * composition.getScale());
-      int scaledHeight = (int) (height * composition.getScale());
-      if (Math.max(scaledWidth, scaledHeight) > MAX_PIXELS) {
-        float factor = (float) MAX_PIXELS / (float) Math.max(scaledWidth, scaledHeight);
-        scaledWidth *= factor;
-        scaledHeight *= factor;
-        composition.setScale(composition.getScale() * factor);
-      }
-      composition.setBounds(new Rect(0, 0, scaledWidth, scaledHeight));
-    }
-
-    try {
-      composition.setStartFrame(json.getLong("ip"));
-      composition.setEndFrame(json.getLong("op"));
-      composition.setFrameRate(json.getInt("fr"));
-    } catch (JSONException e) {
-      //
-    }
-
-    if (composition.getEndFrame() != 0 && composition.getFrameRate() != 0) {
-      long frameDuration = composition.getEndFrame() - composition.getStartFrame();
-      composition.setDuration((long) (frameDuration / (float) composition.getFrameRate() * 1000));
-    }
-
-    try {
-      JSONArray jsonLayers = json.getJSONArray("layers");
-      for (int i = 0; i < jsonLayers.length(); i++) {
-        Layer layer = Layer.fromJson(jsonLayers.getJSONObject(i), composition);
-        addLayer(composition, layer);
-      }
-    } catch (JSONException e) {
-      throw new IllegalStateException("Unable to find layers.", e);
-    }
-
-    // These are precomps. This naively adds the precomp layers to the main composition.
-    // TODO: Significant work will have to be done to properly support them.
-    try {
-      JSONArray assets = json.getJSONArray("assets");
-      for (int i = 0; i < assets.length(); i++) {
-        JSONObject asset = assets.getJSONObject(i);
-        JSONArray layers = asset.getJSONArray("layers");
-        for (int j = 0; j < layers.length(); j++) {
-          Layer layer = Layer.fromJson(layers.getJSONObject(j), composition);
-          addLayer(composition, layer);
-        }
-      }
-    } catch (JSONException e) {
-      // Do nothing.
-    }
-
-
-    return composition;
-  }
-
-  private static void addLayer(LottieComposition composition, Layer layer) {
-    composition.layers.add(layer);
-    composition.layerMap.put(layer.getId(), layer);
-    if (!layer.getMasks().isEmpty()) {
-      composition.hasMasks = true;
-    }
-    if (layer.getMatteType() != null && layer.getMatteType() != Layer.MatteType.None) {
-      composition.hasMattes = true;
     }
   }
 
@@ -190,7 +113,7 @@ public class LottieComposition {
   private boolean hasMattes;
   private float scale;
 
-  private LottieComposition(Resources res) {
+  public LottieComposition(Resources res) {
     setScale(res.getDisplayMetrics().density);
   }
 
@@ -213,7 +136,7 @@ public class LottieComposition {
     return duration;
   }
 
-  long getEndFrame() {
+  public long getEndFrame() {
     return endFrame;
   }
 
@@ -225,7 +148,7 @@ public class LottieComposition {
     return layers;
   }
 
-  long getStartFrame() {
+  public long getStartFrame() {
     return startFrame;
   }
 
@@ -265,7 +188,25 @@ public class LottieComposition {
     this.duration = duration;
   }
 
+  public LongSparseArray<Layer> getLayerMap() {
+    return layerMap;
+  }
 
+  public boolean isHasMasks() {
+    return hasMasks;
+  }
+
+  public boolean isHasMattes() {
+    return hasMattes;
+  }
+
+  public void setHasMasks(boolean hasMasks) {
+    this.hasMasks = hasMasks;
+  }
+
+  public void setHasMattes(boolean hasMattes) {
+    this.hasMattes = hasMattes;
+  }
 
   @Override
   public String toString() {
