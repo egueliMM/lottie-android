@@ -18,4 +18,14 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         />
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/rotationControl"
+        android:layout_margin="16dp"
+        android:max="360"
+        />
 </RelativeLayout>

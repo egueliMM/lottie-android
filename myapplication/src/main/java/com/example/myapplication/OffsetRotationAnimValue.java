@@ -11,10 +11,17 @@ import com.airbnb.lottie.animation.Animation;
  */
 public class OffsetRotationAnimValue implements AnimatableValue<Float> {
   private final AnimatableValue<Float> source;
-  private final float offset;
+  private float offset = 0;
 
-  public OffsetRotationAnimValue(AnimatableValue<Float> source, float offset) {
+  public OffsetRotationAnimValue(AnimatableValue<Float> source) {
     this.source = source;
+  }
+
+  public float getOffset() {
+    return offset;
+  }
+
+  public void setOffset(float offset) {
     this.offset = offset;
   }
 

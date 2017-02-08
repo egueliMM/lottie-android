@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.SeekBar;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.animatable.AnimatableValue;
@@ -21,6 +22,7 @@ import io.reactivex.Single;
 
 public class MainActivity extends AppCompatActivity {
   private static final String TAG = "MainActivity";
+  private OffsetRotationAnimValue rotationAnimValue;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
               Layer layer = super.parseLayer(json, composition);
               if (layer.getName().equals("Shape Layer 1")) {
                 AnimatableValue<Float> rotation = layer.getRotation();
-                layer.setRotation(new OffsetRotationAnimValue(rotation, 15));
+                rotationAnimValue = new OffsetRotationAnimValue(rotation);
+                layer.setRotation(rotationAnimValue);
               }
               return layer;
             }
@@ -60,7 +63,27 @@ public class MainActivity extends AppCompatActivity {
               });
 
       });
+
+    ((SeekBar)findViewById(R.id.rotationControl)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+      @Override
+      public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if (!fromUser)
+          return;
+        rotationAnimValue.setOffset(progress);
+      }
+
+      @Override
+      public void onStartTrackingTouch(SeekBar seekBar) {
+
+      }
+
+      @Override
+      public void onStopTrackingTouch(SeekBar seekBar) {
+
+      }
+    });
   }
+
 
 
 }
